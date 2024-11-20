@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.with.withlocalhost.reservation.model.repository.ReservationRepository">
+
+	<!-- resultMap 정의 -->
+	<resultMap id="ReservationResultMap"
+		type="com.with.withlocalhost.reservation.model.ReservationDto">
+		<id property="reservationId" column="reservation_id" />
+		<result property="tourId" column="tour_id" />
+		<result property="reservater" column="reservater" />
+		<result property="startDate" column="start_date" />
+		<result property="endDate" column="end_date" />
+		<result property="reservationPeople" column="reservation_people" />
+		<result property="reservationPay" column="reservation_pay" />
+		<result property="reservationStatus" column="reservation_status" />
+	</resultMap>
+
+
+	<insert id="makeReservation" useGeneratedKeys="true"
+		keyProperty="reservationId">
+		INSERT INTO reservation
+		(tour_id, reservater, start_date, end_date, reservation_people,
+		reservation_pay, reservation_status)
+		VALUES
+		(#{tourId}, #{reservater}, #{startDate}, #{endDate},
+		#{reservationPeople}, #{reservationPay}, #{reservationStatus});
+	</insert>
+
+
+	<update id="modify">
+		UPDATE reservation
+		SET reservation_status = #{reservationStatus}
+		WHERE reservation_id = #{reservationId};
+	</update>
+
+</mapper>
