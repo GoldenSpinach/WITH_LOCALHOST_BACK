@@ -63,12 +63,27 @@ public class TourServiceImpl implements TourService {
 	/*
 	 * 투어 만들기
 	 */
-
+	@Transactional
 	@Override
 	public String createTour(CreateTourDto tourdto, MultipartFile mainImg, List<MultipartFile> activityImg)
 			throws SQLException {
 		FileUpload(tourdto , mainImg , activityImg);
-		return null;
+		
+		tourRepo.createTour(tourdto);
+		int tourId = tourdto.getTourId();
+		
+		// category add
+		tourRepo.createCategory(tourdto);
+		// activity add
+		tourRepo.createActivity(tourdto);
+		// option add
+		tourRepo.createOption(tourdto);
+		
+		
+		
+		
+		return "fail";
+		
 	}
 
 	/*
@@ -76,17 +91,18 @@ public class TourServiceImpl implements TourService {
 	 */
 	public void FileUpload(CreateTourDto tourdto, MultipartFile mainImg, List<MultipartFile> activityImg) {
 		FileUtil fileUtil = new FileUtil();
-		String fileName = fileUtil.uploadFile(mainImg);
-		tourdto.setMainImgUrl(fileName);
 		
-//		List<CreateActivityDto> actList = tourdto.getActivities();
-		for(int i=0;i<activityImg.size() ;i++) {
-			String actFileName = fileUtil.uploadFile(activityImg.get(i));
-//			actList.get(i).setActImgUrl(fileName);
+		// mainImg 파일 저장
+		if(mainImg !=null) {
+			String fileName = fileUtil.uploadFile(mainImg);
+			tourdto.setMainImgUrl(fileName);			
 		}
-		
-		// 추가 데이터 삽입 필요
-		
+		List<CreateActivityDto> actList = tourdto.getActivities();
+		if(actList!=null) {
+			for(int i=0;i<activityImg.size() ;i++) {
+				String actFileName = fileUtil.uploadFile(activityImg.get(i));
+			}
+		}
 	}
 	
 	

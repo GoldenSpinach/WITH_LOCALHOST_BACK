@@ -48,6 +48,8 @@
         </collection>	
         	
 	</resultMap>
+	
+
 
 
 	<select id="tourAllList" resultMap="tourResultMap">
@@ -220,8 +222,81 @@
 	    </if>
 	</select>
 
+	<!-- data insert 구문-->
+	<insert id="createTour" parameterType="com.with.withlocalhost.tour.model.CreateTourDto" useGeneratedKeys="true" keyProperty="tourId">
+		insert into tour(
+			guid_name,
+			title,
+			tour_content,
+			people_cnt,
+			pay,
+			notice,
+			meet_address,
+			meet_latitude,
+			meet_longitude,
+			main_img_url,
+			city_id,
+			region_id,
+			need_date
+		) values (
+			#{guidName},
+			#{title},
+			#{tourContent},
+			#{peopleCnt},
+			#{pay},
+			#{notice},
+			#{meetAddress},
+			#{meetLatitude},
+			#{meetLongitude},
+			#{mainImgUrl},
+			#{cityId},
+			#{regionId},
+			#{needDate},
+		)
+	</insert>
 
 
+	<insert id="createCategory" parameterType="com.with.withlocalhost.tour.model.CreateTourDto">
+	    INSERT INTO tour_category (tour_id, category_id)
+	    VALUES
+    	<foreach collection="categorys" item="category" separator=",">
+        (#{tourId}, #{category.categoryId})
+    	</foreach>
+	</insert>
 
+	<insert id="createOption" parameterType="com.with.withlocalhost.tour.model.CreateTourDto">
+	    INSERT INTO tour_option (tour_id, category_id)
+	    VALUES
+	    <foreach collection="options" item="option" separator=",">
+	        (#{tourId}, #{option.categoryId})
+	    </foreach>
+	</insert>
+
+	<insert id="createActivity" parameterType="com.with.withlocalhost.tour.model.CreateTourDto">
+	    INSERT INTO tour_activity (
+			tour_id
+			,category_id
+			,act_name
+			,act_contents
+			,act_address
+			,act_latitude
+			,act_longitude
+		)
+	    VALUES
+	    <foreach collection="activities" item="activity" separator=",">
+	        (#{tourId}
+	        , #{activity.categoryId}
+	        , #{activity.actName}
+	        , #{activity.actContents}
+	        , #{activity.actAddress}
+	        , #{activity.actLatitude}
+	        , #{activity.actLongitude}
+	        , #{activity.actImgUrl}
+	  		)
+	    </foreach>
+	</insert>
 
 </mapper>
+
+
+

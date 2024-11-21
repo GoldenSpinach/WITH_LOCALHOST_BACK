@@ -35,4 +35,12 @@
 		WHERE reservation_id = #{reservationId};
 	</update>
 
+	<select id="guidList">
+	
+	</select>
+
+	<select id="guestList">
+	
+	</select>
+
 </mapper>

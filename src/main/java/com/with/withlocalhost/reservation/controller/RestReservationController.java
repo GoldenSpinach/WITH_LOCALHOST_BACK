@@ -63,7 +63,7 @@ public class RestReservationController {
 	/*
 	 * 예약 정보 수정 하기(update)
 	 */
-	@Operation(summary = "예약 수정", description = "type : requestBody , 예약 dto")
+	@Operation(summary = "예약 수정 ( 호스트만 할 수 있음 )", description = "type : requestBody , 예약 dto")
 	@PutMapping("/modify")
 	public ResponseEntity<?> modify(@RequestBody ReservationDto reservationDto) throws Exception{
 	

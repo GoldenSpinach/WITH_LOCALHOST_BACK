@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import com.with.withlocalhost.tour.model.CreateTourDto;
 import com.with.withlocalhost.tour.model.SearchCriteriaDto;
 import com.with.withlocalhost.tour.model.TourDto;
 
@@ -25,7 +26,13 @@ public interface TourRepository {
 	List<TourDto> tourRecentList() throws SQLException;
 	
 	
-	int createTour() throws SQLException;
+	int createTour(CreateTourDto tourdto) throws SQLException;
+	
+	void createCategory(CreateTourDto tourdto) throws SQLException;
+	
+	void createOption(CreateTourDto tourdto) throws SQLException;
+	
+	void createActivity(CreateTourDto tourdto) throws SQLException;
 	
 
 	

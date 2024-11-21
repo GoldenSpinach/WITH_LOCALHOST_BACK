@@ -25,7 +25,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 
-@Tag(name = "Tour API", description = "투어 관련 API")  // @Api 대신 @Tag 사용
 @RestController
 @RequestMapping("/tour")
 public class RestTourController {
@@ -86,19 +85,18 @@ public class RestTourController {
 	
 	@Operation(summary = "tour 생성 ( insert )", description = "")
 	@PostMapping("/create")
-	public ResponseEntity<?> createTour(//@RequestBody CreateTourDto tourdto,
-										@RequestPart MultipartFile mainImg,
-										@RequestPart List<MultipartFile> activityImg
+	public ResponseEntity<?> createTour(@RequestBody CreateTourDto tourdto,
+										@RequestPart(required=false) MultipartFile mainImg,
+										@RequestPart(required=false) List<MultipartFile> activityImg
 									) throws Exception{
-		System.out.println("mainImg :" + mainImg);
-		CreateTourDto tourdto = new CreateTourDto();
 		tourService.createTour(tourdto , mainImg,activityImg);
 
 		return ResponseEntity.ok("success");
 	}
 	
-	
-	
-	
+	/*
+	 * 
+	 * 수정은 상의 하고 나서 구현하기
+	 */
 	
 }

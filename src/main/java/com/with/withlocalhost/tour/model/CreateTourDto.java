@@ -1,17 +1,19 @@
 package com.with.withlocalhost.tour.model;
 
+import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class CreateTourDto {
+    private int tourId;
     private String guidName;
     private String title;
+    private String tourContent;
     private int peopleCnt;
     private int pay;
     private String notice;
-    private String meet_address;
-    private String meet_latitude;
+    private String meetAddress;
+    private String meetLatitude;
+    private String meetLongitude;
     private String mainImgUrl;
     private int cityId;
     private int regionId;
@@ -23,22 +25,23 @@ public class CreateTourDto {
     private List<CreateActivityDto> activities; // 활동 리스트
 
     // 기본 생성자
-    public CreateTourDto() {
-    }
+    public CreateTourDto() {}
 
     // 모든 필드를 포함하는 생성자
-    public CreateTourDto(String guidName, String title, int peopleCnt, int pay, String notice, 
-                        String meet_address, String meet_latitude, String mainImgUrl, 
-                        int cityId, int regionId, int needDate, MultipartFile img, 
-                        String imgName, List<CategoryDto> categorys, List<OptionDto> options, 
-                        List<CreateActivityDto> activities) {
+    public CreateTourDto(int tourId, String guidName, String title, String tourContent, int peopleCnt, int pay, String notice,
+                         String meetAddress, String meetLatitude, String meetLongitude, String mainImgUrl, int cityId,
+                         int regionId, int needDate, MultipartFile img, String imgName, List<CategoryDto> categorys,
+                         List<OptionDto> options, List<CreateActivityDto> activities) {
+        this.tourId = tourId;
         this.guidName = guidName;
         this.title = title;
+        this.tourContent = tourContent;
         this.peopleCnt = peopleCnt;
         this.pay = pay;
         this.notice = notice;
-        this.meet_address = meet_address;
-        this.meet_latitude = meet_latitude;
+        this.meetAddress = meetAddress;
+        this.meetLatitude = meetLatitude;
+        this.meetLongitude = meetLongitude;
         this.mainImgUrl = mainImgUrl;
         this.cityId = cityId;
         this.regionId = regionId;
@@ -50,7 +53,15 @@ public class CreateTourDto {
         this.activities = activities;
     }
 
-    // Getter와 Setter
+    // Getter와 Setter 메서드
+    public int getTourId() {
+        return tourId;
+    }
+
+    public void setTourId(int tourId) {
+        this.tourId = tourId;
+    }
+
     public String getGuidName() {
         return guidName;
     }
@@ -65,6 +76,14 @@ public class CreateTourDto {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getTourContent() {
+        return tourContent;
+    }
+
+    public void setTourContent(String tourContent) {
+        this.tourContent = tourContent;
     }
 
     public int getPeopleCnt() {
@@ -91,20 +110,28 @@ public class CreateTourDto {
         this.notice = notice;
     }
 
-    public String getMeet_address() {
-        return meet_address;
+    public String getMeetAddress() {
+        return meetAddress;
     }
 
-    public void setMeet_address(String meet_address) {
-        this.meet_address = meet_address;
+    public void setMeetAddress(String meetAddress) {
+        this.meetAddress = meetAddress;
     }
 
-    public String getMeet_latitude() {
-        return meet_latitude;
+    public String getMeetLatitude() {
+        return meetLatitude;
     }
 
-    public void setMeet_latitude(String meet_latitude) {
-        this.meet_latitude = meet_latitude;
+    public void setMeetLatitude(String meetLatitude) {
+        this.meetLatitude = meetLatitude;
+    }
+
+    public String getMeetLongitude() {
+        return meetLongitude;
+    }
+
+    public void setMeetLongitude(String meetLongitude) {
+        this.meetLongitude = meetLongitude;
     }
 
     public String getMainImgUrl() {
@@ -179,17 +206,20 @@ public class CreateTourDto {
         this.activities = activities;
     }
 
-    // toString 메소드
+    // toString 메서드
     @Override
     public String toString() {
-        return "CreatTourDto{" +
-                "guidName='" + guidName + '\'' +
+        return "CreateTourDto{" +
+                "tourId=" + tourId +
+                ", guidName='" + guidName + '\'' +
                 ", title='" + title + '\'' +
+                ", tourContent='" + tourContent + '\'' +
                 ", peopleCnt=" + peopleCnt +
                 ", pay=" + pay +
                 ", notice='" + notice + '\'' +
-                ", meet_address='" + meet_address + '\'' +
-                ", meet_latitude='" + meet_latitude + '\'' +
+                ", meetAddress='" + meetAddress + '\'' +
+                ", meetLatitude='" + meetLatitude + '\'' +
+                ", meetLongitude='" + meetLongitude + '\'' +
                 ", mainImgUrl='" + mainImgUrl + '\'' +
                 ", cityId=" + cityId +
                 ", regionId=" + regionId +
