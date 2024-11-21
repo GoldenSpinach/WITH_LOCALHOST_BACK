@@ -9,10 +9,10 @@ public interface TourService {
 
 	List<TourDto> tourAllList()  throws SQLException;
 	
-	TourDto tourDetail(String tourId) throws SQLException;
+	TourDto tourDetail(int tourId) throws SQLException;
 	
 	List<TourDto> tourSearch() throws SQLException;
 	
-	List<TourDto> tourRandomList() throws SQLException;
+	List<TourDto> tourRecentList() throws SQLException;
 	
 }

@@ -12,7 +12,6 @@ public class ReservationDto {
     private int reservationPeople;    // reservation_people
     private int reservationPay;       // reservation_pay
     private String reservationStatus; // reservation_status
-
     // 기본 생성자
     public ReservationDto() {}
 

@@ -15,13 +15,13 @@ public interface TourRepository {
 	List<TourDto> tourAllList() throws SQLException;
 
 	// 투어 상세
-	TourDto tourDetail(String tourId) throws SQLException;
+	TourDto tourDetail(int tourId) throws SQLException;
 	
 	// 투어 검색 리스트
 	List<TourDto> tourSearch() throws SQLException;
 	
 	// 투어 랜덤 리스트
-	List<TourDto> tourRandomList() throws SQLException;
+	List<TourDto> tourRecentList() throws SQLException;
 	
 
 	

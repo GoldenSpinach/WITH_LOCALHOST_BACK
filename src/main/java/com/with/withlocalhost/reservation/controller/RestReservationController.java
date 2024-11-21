@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.with.withlocalhost.reservation.model.ReservationDto;
 import com.with.withlocalhost.reservation.model.service.ReservationService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -30,25 +31,28 @@ public class RestReservationController {
 	/*
 	 * 가이드 예약 정보 확인하기
 	 */
+	@Operation(summary = "가이드 예약 정보", description = "type : param , guidId")
 	@GetMapping("/guidList")
 	public ResponseEntity<?> guidList(@RequestParam String guidId) throws Exception{
 		List<ReservationDto> reservationList = reservationService.guidList(guidId);
-		return ResponseEntity.ok("te");
+		return ResponseEntity.ok(reservationList);
 	}
 	
 	/*
 	 * 게스트 예약 정보 확인
 	 */
+	@Operation(summary = "게스트 예약 정보 ", description = "type : param , guestId")
 	@GetMapping("/guestList")
 	public ResponseEntity<?> guestList(@RequestParam String guestId) throws Exception{
 		List<ReservationDto> reservationList = reservationService.guestList(guestId);
-		return ResponseEntity.ok("te");
+		return ResponseEntity.ok(reservationList);
 	}
 	
 	
 	/*
 	 * 예약 하기 (insert)
 	 */
+	@Operation(summary = "예약하기", description = "type : requestBody , 예약 dto")
 	@PostMapping("/makeReservation")
 	public ResponseEntity<?> makeReservation(@RequestBody ReservationDto reservationDto) throws Exception{
 		
@@ -59,6 +63,7 @@ public class RestReservationController {
 	/*
 	 * 예약 정보 수정 하기(update)
 	 */
+	@Operation(summary = "예약 수정", description = "type : requestBody , 예약 dto")
 	@PutMapping("/modify")
 	public ResponseEntity<?> modify(@RequestBody ReservationDto reservationDto) throws Exception{
 	
@@ -68,11 +73,11 @@ public class RestReservationController {
 	/*
 	 * 예약 취소 하기
 	 */
-	@PutMapping("/cancel")
-	public ResponseEntity<?> cancel() throws Exception{
-		
-		return ResponseEntity.ok("te");
-	}
+//	@PutMapping("/cancel")
+//	public ResponseEntity<?> cancel() throws Exception{
+//		
+//		return ResponseEntity.ok("te");
+//	}
 	
 	
 	

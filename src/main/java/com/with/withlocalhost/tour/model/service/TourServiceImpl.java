@@ -25,7 +25,7 @@ public class TourServiceImpl implements TourService {
 	@Transactional
 	public List<TourDto> tourAllList() throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		return tourRepo.tourAllList();
 	}
 
 	/*
@@ -33,9 +33,9 @@ public class TourServiceImpl implements TourService {
 	 */
 	@Override
 	@Transactional
-	public TourDto tourDetail(String tourId) throws SQLException {
+	public TourDto tourDetail(int tourId) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		return tourRepo.tourDetail(tourId);
 	}
 
 	/*
@@ -52,9 +52,9 @@ public class TourServiceImpl implements TourService {
 	 * 램덤한 투어 list
 	 */
 	@Override
-	public List<TourDto> tourRandomList() throws SQLException {
+	public List<TourDto> tourRecentList() throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		return tourRepo.tourRecentList();
 	}
 
 }
