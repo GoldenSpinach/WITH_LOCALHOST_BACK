@@ -9,7 +9,7 @@ public class ActivityDto {
     private String actAddress;    // 활동 주소
     private Double actLatitude;   // 활동 위도
     private Double actLongitude;  // 활동 경도
-    
+    private String actImgUrl;
     private String activityName;  // 카테고리 이름 (변경된 필드)
     private String activityType;  // 카테고리 타입 (변경된 필드)
 
@@ -19,7 +19,7 @@ public class ActivityDto {
     // 모든 필드를 받는 생성자
     public ActivityDto(int actId, int tourId, int categoryId, String actName, String actContents, 
                        String actAddress, Double actLatitude, Double actLongitude, 
-                       String activityName, String activityType) {  // 수정된 생성자 파라미터 이름
+                       String activityName, String activityType , String actImgUrl) {  // 수정된 생성자 파라미터 이름
         this.actId = actId;
         this.tourId = tourId;
         this.categoryId = categoryId;
@@ -30,6 +30,7 @@ public class ActivityDto {
         this.actLongitude = actLongitude;
         this.activityName = activityName;  // 수정된 필드
         this.activityType = activityType;  // 수정된 필드
+        this.actImgUrl = actImgUrl;
     }
 
     // Getter 및 Setter 메서드
@@ -113,7 +114,15 @@ public class ActivityDto {
         this.activityType = activityType;
     }
 
-    // toString 메서드 - 객체의 상태를 문자열로 반환
+    public String getActImgUrl() {
+		return actImgUrl;
+	}
+
+	public void setActImgUrl(String actImgUrl) {
+		this.actImgUrl = actImgUrl;
+	}
+
+	// toString 메서드 - 객체의 상태를 문자열로 반환
     @Override
     public String toString() {
         return "ActivityDto{" +
@@ -127,6 +136,7 @@ public class ActivityDto {
                 ", actLongitude=" + actLongitude +
                 ", activityName='" + activityName + '\'' +  // 수정된 필드
                 ", activityType='" + activityType + '\'' +  // 수정된 필드
+                ", actImgUrl ='" + actImgUrl + '\'' +
                 '}';
     }
 }

@@ -2,6 +2,8 @@ package com.with.withlocalhost.tour.model;
 
 import java.util.List;
 
+import com.with.withlocalhost.review.model.ReviewDto;
+
 public class TourDto {
     private int tourId; // 투어 ID
     private String title; // 제목
@@ -19,6 +21,7 @@ public class TourDto {
     private List<CategoryDto> categorys; // 카테고리 리스트
     private List<OptionDto> options; // 옵션 리스트
     private List<ActivityDto> activities; // 활동 리스트
+    private List<ReviewDto> reviews;
 
     // 기본 생성자
     public TourDto() {}
@@ -26,7 +29,7 @@ public class TourDto {
     // 모든 필드를 포함한 생성자
     public TourDto(int tourId, String title, String content,int peopleCnt, int pay, String notice, String meetLongitude,
             String meetLatitude, String meetAddress, String mainImgUrl, String guidName, double reviewAvg,
-            List<CategoryDto> categorys, List<OptionDto> options, List<ActivityDto> activities) {
+            List<CategoryDto> categorys, List<OptionDto> options, List<ActivityDto> activities , List<ReviewDto> reviews) {
         this.tourId = tourId;
         this.title = title;
         this.content = content;
@@ -42,6 +45,7 @@ public class TourDto {
         this.categorys = categorys;
         this.options = options;
         this.activities = activities;
+        this.reviews = reviews;
     }
 
     // Getter와 Setter
@@ -163,7 +167,26 @@ public class TourDto {
         this.activities = activitys;
     }
 
-    // toString() 메서드 (디버깅 및 로그용)
+    
+    
+    
+    public List<ActivityDto> getActivities() {
+		return activities;
+	}
+
+	public void setActivities(List<ActivityDto> activities) {
+		this.activities = activities;
+	}
+
+	public List<ReviewDto> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<ReviewDto> reviews) {
+		this.reviews = reviews;
+	}
+
+	// toString() 메서드 (디버깅 및 로그용)
     @Override
     public String toString() {
         return "TourDto{" +

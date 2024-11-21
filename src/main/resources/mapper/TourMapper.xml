@@ -40,6 +40,13 @@
         <result property="actImgUrl" column="act_img_url" />
     </collection>
 		
+			        <!-- reviews 리스트 매핑 -->
+        <collection property="reviews" ofType="com.with.withlocalhost.review.model.ReviewDto">
+            <result property="reservater" column="reservater" />
+            <result property="reviewContent" column="review_content" />
+            <result property="reviewScore" column="review_score" />
+        </collection>	
+        	
 	</resultMap>
 
 
@@ -68,34 +75,39 @@
 	</select>
 
 	<!-- tourDetail -->
-	<select id="recentList" resultMap="tourResultMap">
-		select
-	        t.tour_id,
-	        t.guid_name,
-	        t.title,
-	        t.tour_content,
-	        t.people_cnt,
-	        t.meet_address,
-	        t.meet_latitude,
-	        t.meet_longitude,
-	        t.main_img_url,
-	        o.option_name,
-	        c.category_name,
-	        r.average_review_score as review_avg
-	    from 
-	        tour as t
-	    left join
-	        tour_option_view as o 
-	   	using (tour_id)
-	    left join
-	        tour_category_view as c 
-	    using(tour_id)
-	    left join
-	        tour_review_summary as r 
-	    using (tour_id)
-        order by tour_id desc 
-        limit 10;
+	<select id="tourRecentList" resultMap="tourResultMap">
+		SELECT
+		    t.tour_id,
+		    t.guid_name,
+		    t.title,
+		    t.tour_content,
+		    t.people_cnt,
+		    t.meet_address,
+		    t.meet_latitude,
+		    t.meet_longitude,
+		    t.main_img_url,
+		    o.option_name,
+		    c.category_name,
+		    r.average_review_score as review_avg
+		FROM 
+		    tour AS t
+		LEFT JOIN
+		    tour_option_view AS o USING (tour_id)
+		LEFT JOIN
+		    tour_category_view AS c USING (tour_id)
+		LEFT JOIN
+		    tour_review_summary AS r USING (tour_id)
+		JOIN (
+		    SELECT tour_id
+		    FROM tour
+		    ORDER BY tour_id DESC
+		    LIMIT 10
+		) AS recent_tours
+		    ON t.tour_id = recent_tours.tour_id
+		ORDER BY
+		    t.tour_id DESC;
 	</select>
+	 
 	<select id="tourDetail" resultMap="tourResultMap">
 	    SELECT
 	        t.tour_id
@@ -133,6 +145,82 @@
 	        t.tour_id = #{tourId}
 	</select>
 	
+	<!-- 투어 검색 -->
+	<select id="tourSearch" resultMap="tourResultMap">
+	    SELECT
+	        t.tour_id,
+	        t.guid_name,
+	        t.title,
+	        t.people_cnt,
+	        t.meet_address,
+	        t.meet_latitude,
+	        t.meet_longitude,
+	        t.main_img_url,
+	        o.option_name,
+	        c.category_name,
+	        r.average_review_score AS review_avg
+	    FROM 
+	        tour AS t
+	    LEFT JOIN
+	        tour_option_view AS o ON t.tour_id = o.tour_id
+	    LEFT JOIN
+	        tour_category_view AS c ON t.tour_id = c.tour_id
+	    LEFT JOIN
+	        tour_review_summary AS r ON t.tour_id = r.tour_id
+	    WHERE 1=1
+	    <!-- 시작일과 종료일 조건 -->
+	    <if test="startDate != null and endDate != null">
+	        AND NOT EXISTS (
+	            SELECT 1
+	            FROM tour AS t2
+	            WHERE t2.tour_id = t.tour_id
+	            AND (
+	                (t2.start_date <![CDATA[BETWEEN]]> #{startDate} AND #{endDate}) OR
+	                (t2.end_date <![CDATA[BETWEEN]]> #{startDate} AND #{endDate}) OR
+	                (t2.start_date <![CDATA[<=]]> #{startDate} AND t2.end_date <![CDATA[>=]]> #{endDate})
+	            )
+	        )
+	    </if>
+	    <!-- 시작일만 있을 때 -->
+	    <if test="startDate != null and endDate == null">
+	        AND NOT EXISTS (
+	            SELECT 1
+	            FROM tour AS t2
+	            WHERE t2.tour_id = t.tour_id
+	            AND t2.start_date <![CDATA[>=]]> #{startDate}
+	        )
+	    </if>
+	    <!-- 종료일만 있을 때 -->
+	    <if test="startDate == null and endDate != null">
+	        AND NOT EXISTS (
+	            SELECT 1
+	            FROM tour AS t2
+	            WHERE t2.tour_id = t.tour_id
+	            AND t2.end_date <![CDATA[<=]]> #{endDate}
+	        )
+	    </if>
+	    <!-- 옵션 조건 -->
+	    <if test="options != null and !options.isEmpty()">
+	        AND o.option_id IN
+	        <foreach collection="options" item="option" open="(" separator="," close=")">
+	            #{option}
+	        </foreach>
+	    </if>
+	    <!-- 카테고리 이름 조건 -->
+	    <if test="categoryName != null">
+	        AND c.category_id = #{categoryId}
+	    </if>
+	    <!-- 지역 ID 조건 -->
+	    <if test="regionId != 0">
+	        AND t.region_id = #{regionId}
+	    </if>
+	    <!-- 도시 ID 조건 -->
+	    <if test="cityId != 0">
+	        AND t.city_id = #{cityId}
+	    </if>
+	</select>
+
+
 
 
 

@@ -11,10 +11,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.with.withlocalhost.tour.model.CreateTourDto;
+import com.with.withlocalhost.tour.model.SearchCriteriaDto;
 import com.with.withlocalhost.tour.model.TourDto;
 import com.with.withlocalhost.tour.model.service.TourService;
+import com.with.withlocalhost.util.FileUtil;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -71,14 +76,26 @@ public class RestTourController {
 	/*
 	 * 투어 검색
 	 */
-//	@GetMapping("/search")
-//	public ResponseEntity<?> tourSearch(@RequestBody ) throws Exception{
-//		
-//		return null;
-//	}
+	@Operation(summary = "투어 검색 ( 구분해놨음 )", description = "10개만 전달해줌")
+	@GetMapping("/search")
+	public ResponseEntity<?> tourSearch(@RequestBody SearchCriteriaDto  searchCriteriaDto) throws Exception{
+		List<TourDto> searchList = tourService.tourSearch(searchCriteriaDto);
+		return ResponseEntity.ok(searchList);
+	}
 	
 	
-	
+	@Operation(summary = "tour 생성 ( insert )", description = "")
+	@PostMapping("/create")
+	public ResponseEntity<?> createTour(//@RequestBody CreateTourDto tourdto,
+										@RequestPart MultipartFile mainImg,
+										@RequestPart List<MultipartFile> activityImg
+									) throws Exception{
+		System.out.println("mainImg :" + mainImg);
+		CreateTourDto tourdto = new CreateTourDto();
+		tourService.createTour(tourdto , mainImg,activityImg);
+
+		return ResponseEntity.ok("success");
+	}
 	
 	
 	
