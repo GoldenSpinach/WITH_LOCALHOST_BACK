@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.with.withlocalhost.reservation.model.ReservationDto;
+import com.with.withlocalhost.reservation.model.ReservationTourDto;
 import com.with.withlocalhost.reservation.model.service.ReservationService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,7 +35,8 @@ public class RestReservationController {
 	@Operation(summary = "가이드 예약 정보", description = "type : param , guidId")
 	@GetMapping("/guidList")
 	public ResponseEntity<?> guidList(@RequestParam String guidId) throws Exception{
-		List<ReservationDto> reservationList = reservationService.guidList(guidId);
+		System.out.println("받은 값 : " + guidId);
+		List<ReservationTourDto> reservationList = reservationService.guidList(guidId);
 		return ResponseEntity.ok(reservationList);
 	}
 	
@@ -44,7 +46,7 @@ public class RestReservationController {
 	@Operation(summary = "게스트 예약 정보 ", description = "type : param , guestId")
 	@GetMapping("/guestList")
 	public ResponseEntity<?> guestList(@RequestParam String guestId) throws Exception{
-		List<ReservationDto> reservationList = reservationService.guestList(guestId);
+		List<ReservationTourDto> reservationList = reservationService.guestList(guestId);
 		return ResponseEntity.ok(reservationList);
 	}
 	
@@ -55,19 +57,18 @@ public class RestReservationController {
 	@Operation(summary = "예약하기", description = "type : requestBody , 예약 dto")
 	@PostMapping("/makeReservation")
 	public ResponseEntity<?> makeReservation(@RequestBody ReservationDto reservationDto) throws Exception{
-		
-		return ResponseEntity.ok("te");
+		return ResponseEntity.ok(reservationService.makeReservation(reservationDto));
 	}
 	
 	
 	/*
 	 * 예약 정보 수정 하기(update)
 	 */
-	@Operation(summary = "예약 수정 ( 호스트만 할 수 있음 )", description = "type : requestBody , 예약 dto")
+	@Operation(summary = " testId : minji123 / 예약 수정 투어 호스트만 할 수 있음 / P:대기, A:승인, C:취소", description = "reservation_id 와 reservation_type만 던져도 됨")
 	@PutMapping("/modify")
 	public ResponseEntity<?> modify(@RequestBody ReservationDto reservationDto) throws Exception{
 	
-		return ResponseEntity.ok("te");
+		return ResponseEntity.ok(reservationService.modify(reservationDto));
 	}
 	
 	/*

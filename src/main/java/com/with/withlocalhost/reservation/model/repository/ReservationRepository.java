@@ -5,16 +5,17 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.with.withlocalhost.reservation.model.ReservationDto;
+import com.with.withlocalhost.reservation.model.ReservationTourDto;
 
 @Mapper
 public interface ReservationRepository {
 
-		List<ReservationDto> guidList(String guidId);
+		List<ReservationTourDto> guidList(String guidId);
 		
-		List<ReservationDto> guestList(String guestId);
+		List<ReservationTourDto> guestList(String guestId);
 		
 		int makeReservation(ReservationDto reservationDto);
 		
-		int modify();
+		int modify(ReservationDto reservationDto);
 	
 }

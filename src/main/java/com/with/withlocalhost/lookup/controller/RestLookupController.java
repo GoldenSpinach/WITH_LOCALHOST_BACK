@@ -14,7 +14,9 @@ import com.with.withlocalhost.lookup.model.RegionDto;
 import com.with.withlocalhost.lookup.model.service.LookupService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "lookup API", description = "loop up API")
 @RestController
 @RequestMapping("/lookup")
 public class RestLookupController {

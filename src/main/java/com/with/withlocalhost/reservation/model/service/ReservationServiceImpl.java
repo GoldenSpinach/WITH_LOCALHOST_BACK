@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.with.withlocalhost.reservation.model.ReservationDto;
+import com.with.withlocalhost.reservation.model.ReservationTourDto;
 import com.with.withlocalhost.reservation.model.repository.ReservationRepository;
 
 @Service
@@ -17,13 +18,13 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 	
 	@Override
-	public List<ReservationDto> guidList(String guidId) {
-		
+	public List<ReservationTourDto> guidList(String guidId) {
+		System.out.println(guidId);
 		return reservationRepository.guidList(guidId);
 	}
 
 	@Override
-	public List<ReservationDto> guestList(String guestId) {
+	public List<ReservationTourDto> guestList(String guestId) {
 		
 		return reservationRepository.guestList(guestId);
 	}
@@ -38,8 +39,8 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
-	public String modify() {
-		int result =reservationRepository.modify();
+	public String modify(ReservationDto reservationDto) {
+		int result =reservationRepository.modify(reservationDto);
 		if(result>0) {
 			return "success";
 		}

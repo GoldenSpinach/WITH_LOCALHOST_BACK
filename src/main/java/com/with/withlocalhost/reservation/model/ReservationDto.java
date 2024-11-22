@@ -3,20 +3,32 @@ package com.with.withlocalhost.reservation.model;
 import java.util.Date;
 
 public class ReservationDto {
+    private int reservationId;
+    private int tourId;
+    private String reservater;
+    private Date startDate;
+    private Date endDate;
+    private int reservationPeople;
+    private int reservationPay;
+    private String reservationStatus;
 
-    private int reservationId;        // reservation_id
-    private int tourId;               // tour_id
-    private String reservater;        // reservater
-    private Date startDate;           // start_date
-    private Date endDate;             // end_date
-    private int reservationPeople;    // reservation_people
-    private int reservationPay;       // reservation_pay
-    private String reservationStatus; // reservation_status
     // 기본 생성자
     public ReservationDto() {}
 
-    // 필드에 대한 getter와 setter 메서드
+    // 모든 필드를 초기화하는 생성자
+    public ReservationDto(int reservationId, int tourId, String reservater, Date startDate, Date endDate,
+                          int reservationPeople, int reservationPay, String reservationStatus) {
+        this.reservationId = reservationId;
+        this.tourId = tourId;
+        this.reservater = reservater;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.reservationPeople = reservationPeople;
+        this.reservationPay = reservationPay;
+        this.reservationStatus = reservationStatus;
+    }
 
+    // Getter와 Setter
     public int getReservationId() {
         return reservationId;
     }
@@ -81,7 +93,7 @@ public class ReservationDto {
         this.reservationStatus = reservationStatus;
     }
 
-    // toString() 메서드 추가 (선택 사항)
+    // toString 메서드
     @Override
     public String toString() {
         return "ReservationDto{" +
