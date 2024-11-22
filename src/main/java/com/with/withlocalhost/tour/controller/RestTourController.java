@@ -3,6 +3,7 @@ package com.with.withlocalhost.tour.controller;
 import java.util.List;
 
 import org.apache.catalina.connector.Response;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,8 +35,6 @@ public class RestTourController {
 	public RestTourController(TourService tourService) {
 		this.tourService = tourService;
 	}
-	
-	
 	
 	/*
 	 * 투어 전체 리스트
@@ -76,19 +75,24 @@ public class RestTourController {
 	 * 투어 검색
 	 */
 	@Operation(summary = "투어 검색 ( 구분해놨음 )", description = "10개만 전달해줌")
-	@GetMapping("/search")
+	@PostMapping("/search")
 	public ResponseEntity<?> tourSearch(@RequestBody SearchCriteriaDto  searchCriteriaDto) throws Exception{
 		List<TourDto> searchList = tourService.tourSearch(searchCriteriaDto);
 		return ResponseEntity.ok(searchList);
 	}
 	
 	
+	
 	@Operation(summary = "tour 생성 ( insert )", description = "")
 	@PostMapping("/create")
-	public ResponseEntity<?> createTour(@RequestBody CreateTourDto tourdto,
+	public ResponseEntity<?> createTour(
+			//@RequestBody (required=false)CreateTourDto tourdto,
 										@RequestPart(required=false) MultipartFile mainImg,
 										@RequestPart(required=false) List<MultipartFile> activityImg
 									) throws Exception{
+		
+		System.out.println("create 도착");
+		CreateTourDto tourdto = new CreateTourDto();
 		tourService.createTour(tourdto , mainImg,activityImg);
 
 		return ResponseEntity.ok("success");

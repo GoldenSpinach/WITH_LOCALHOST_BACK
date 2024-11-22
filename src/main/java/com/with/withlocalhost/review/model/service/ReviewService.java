@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.with.withlocalhost.review.model.ReviewDto;
+import com.with.withlocalhost.review.model.ReviewTourDto;
 
 public interface ReviewService {
 

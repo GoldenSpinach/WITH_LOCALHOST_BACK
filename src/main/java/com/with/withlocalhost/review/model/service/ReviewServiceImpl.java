@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.with.withlocalhost.review.model.ReviewDto;
+import com.with.withlocalhost.review.model.ReviewTourDto;
 import com.with.withlocalhost.review.model.repository.ReviewRepository;
 
 @Service

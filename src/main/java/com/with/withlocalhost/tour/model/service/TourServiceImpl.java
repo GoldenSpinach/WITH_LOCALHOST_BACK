@@ -3,6 +3,7 @@ package com.with.withlocalhost.tour.model.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,9 +19,12 @@ import com.with.withlocalhost.util.FileUtil;
 public class TourServiceImpl implements TourService {
 
 	private final TourRepository tourRepo;
+	
+	private final FileUtil fileUtil;
 
-	public TourServiceImpl(TourRepository tourRepo) {
+	public TourServiceImpl(TourRepository tourRepo , FileUtil fileUtil) {
 		this.tourRepo = tourRepo;
+		this.fileUtil = fileUtil;
 	}
 
 	/*
@@ -90,12 +94,12 @@ public class TourServiceImpl implements TourService {
 	 * fileUpload 처리
 	 */
 	public void FileUpload(CreateTourDto tourdto, MultipartFile mainImg, List<MultipartFile> activityImg) {
-		FileUtil fileUtil = new FileUtil();
+//		FileUtil fileUtil = new FileUtil();
 		
 		// mainImg 파일 저장
 		if(mainImg !=null) {
 			String fileName = fileUtil.uploadFile(mainImg);
-			tourdto.setMainImgUrl(fileName);			
+//			tourdto.setMainImgUrl(fileName);			
 		}
 		List<CreateActivityDto> actList = tourdto.getActivities();
 		if(actList!=null) {

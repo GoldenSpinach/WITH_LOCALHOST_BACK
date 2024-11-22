@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.with.withlocalhost.review.model.ReviewDto;
-import com.with.withlocalhost.review.model.service.ReviewTourDto;
+import com.with.withlocalhost.review.model.ReviewTourDto;
 
 @Mapper
 public interface ReviewRepository {

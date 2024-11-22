@@ -2,48 +2,93 @@ package com.with.withlocalhost.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.net.InetAddress;
+import java.net.URL;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Service;
+import org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.with.withlocalhost.tour.model.ActivityDto;
-import com.with.withlocalhost.tour.model.CreateActivityDto;
-import com.with.withlocalhost.tour.model.CreateTourDto;
-
+@Component
 public class FileUtil {
 
-	private final String uploadDir ="C:\\imgs";
-//	@Value("${test.upload-dir}")
-//	private String uploadDir;
-
+	@Value("${server.host}")
+    private String serverHost;
+	
+	
+	
+	// 파일 업로드 메인 함수
 	public String uploadFile(MultipartFile img) {
-	    System.out.println("여기왔음@@@@@@@@@");
+		// 1. 실제 경로 얻기
+		String realPath = getRealPath();
+		if (realPath == null) {
+			System.out.println("경로를 찾을 수 없습니다.");
+			return null;
+		}
 
-	    String fileName = getOriginName(img); 
-	    String fullPathName = uploadDir + fileName;
-	    try {
-			img.transferTo(new File(fullPathName));
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-	    System.out.println("fileName : " + fileName);
-	    return fileName;  // fileName만 반환
+		// 2. 원본 파일 이름 가져오기
+		String fileName = createFileName(getOriginName(img));
+		System.out.println("fileName : " + fileName);
+		// 3. 파일 저장 경로
+		String fullPathName = realPath + fileName;
+
+		// 4. 파일 저장
+		if (saveFile(img, fullPathName)) {
+			System.out.println("File successfully uploaded: " + fileName);
+			System.out.println("full path : " + serverHost+fileName);
+			
+			return fileName;
+		} else {
+			System.out.println("error 발생했음!!!!");
+			return null;
+		}
 	}
 
-	private String getOriginName(MultipartFile image){
-	    return image.getOriginalFilename();
+	// 실제 파일 저장 경로 얻기
+	private String getRealPath() {
+		String projectPath = getProjectPath(); // 프로젝트 경로
+		if (projectPath == null) {
+			return null;
+		}
+		String uploadDir = "/src/main/resources/static/img/"; // 상대 경로로 설정
+		return projectPath + uploadDir;
+	}
+
+	// 프로젝트 경로 얻기
+	private String getProjectPath() {
+		try {
+			String projectPath = Paths.get("").toAbsolutePath().toString();
+			System.out.println("프로젝트 경로: " + projectPath);
+			return projectPath;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	// 원본 파일 이름을 가져오는 메서드
+	private String getOriginName(MultipartFile image) {
+		return image.getOriginalFilename();
+	}
+
+	// 파일 저장 메서드
+	private boolean saveFile(MultipartFile img, String fullPathName) {
+		try {
+			img.transferTo(new File(fullPathName));
+			return true;
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	// 파일 이름 생성 (UUID + 원본 파일 이름)
+	private String createFileName(String fileName) {
+		UUID uuid = UUID.randomUUID();
+		return uuid.toString()+fileName;
 	}
 }

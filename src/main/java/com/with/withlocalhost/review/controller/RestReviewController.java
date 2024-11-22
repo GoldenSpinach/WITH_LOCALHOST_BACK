@@ -2,6 +2,7 @@ package com.with.withlocalhost.review.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.with.withlocalhost.review.model.ReviewDto;
+import com.with.withlocalhost.review.model.ReviewTourDto;
 import com.with.withlocalhost.review.model.service.ReviewService;
-import com.with.withlocalhost.review.model.service.ReviewTourDto;
 import com.with.withlocalhost.tour.model.TourDto;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,6 +28,7 @@ public class RestReviewController {
 	public RestReviewController(ReviewService reviewService) {
 		this.reviewService = reviewService;
 	}
+	
 
 	/*
 	 * 내 리뷰 보기
@@ -35,6 +37,7 @@ public class RestReviewController {
 	@GetMapping("/{userId}")
 	public ResponseEntity<?> myReviewList(@PathVariable("userId") String userId) throws Exception{
 		
+	
 		List<ReviewTourDto> reviewTourList = reviewService.myReviewList(userId);
 		return ResponseEntity.ok(reviewTourList);
 	}
