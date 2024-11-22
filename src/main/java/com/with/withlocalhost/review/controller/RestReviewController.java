@@ -36,8 +36,6 @@ public class RestReviewController {
 	@Operation(summary = "my 리뷰 리스트 조회", description = "")
 	@GetMapping("/{userId}")
 	public ResponseEntity<?> myReviewList(@PathVariable("userId") String userId) throws Exception{
-		
-	
 		List<ReviewTourDto> reviewTourList = reviewService.myReviewList(userId);
 		return ResponseEntity.ok(reviewTourList);
 	}

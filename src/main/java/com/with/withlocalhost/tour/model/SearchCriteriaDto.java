@@ -2,34 +2,31 @@ package com.with.withlocalhost.tour.model;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-
-import java.util.Date;
-import java.util.Map;
 
 public class SearchCriteriaDto {
 
-    private Date startDate;    // 시작일
-    private Date endDate;      // 종료일
+    private Date startDate; // 시작일
+    private Date endDate;   // 종료일
+    private int regionId;   // 지역 이름
     private List<Integer> options;   // 옵션
-    private int regionId;    // 지역 이름
-    private int cityId;      // 도시 이름
+    private List<Integer> categories; // 카테고리
+    private List<Integer> cities;    // 도시
 
     // 기본 생성자
     public SearchCriteriaDto() {
     }
 
-    // 모든 필드를 초기화하는 생성자
-    public SearchCriteriaDto(Date startDate, Date endDate, List<Integer> options, int regionId, int cityId) {
+    // 모든 필드를 포함하는 생성자
+    public SearchCriteriaDto(Date startDate, Date endDate, int regionId, List<Integer> options, List<Integer> categories, List<Integer> cities) {
         this.startDate = startDate;
         this.endDate = endDate;
-        this.options = options;
         this.regionId = regionId;
-        this.cityId = cityId;
+        this.options = options;
+        this.categories = categories;
+        this.cities = cities;
     }
 
-    // Getter와 Setter
-
+    // Getter 및 Setter
     public Date getStartDate() {
         return startDate;
     }
@@ -46,14 +43,6 @@ public class SearchCriteriaDto {
         this.endDate = endDate;
     }
 
-    public List<Integer> getOptions() {
-        return options;
-    }
-
-    public void setOptions(List<Integer> options) {
-        this.options = options;
-    }
-
     public int getRegionId() {
         return regionId;
     }
@@ -62,12 +51,28 @@ public class SearchCriteriaDto {
         this.regionId = regionId;
     }
 
-    public int getCityId() {
-        return cityId;
+    public List<Integer> getOptions() {
+        return options;
     }
 
-    public void setCityId(int cityId) {
-        this.cityId = cityId;
+    public void setOptions(List<Integer> options) {
+        this.options = options;
+    }
+
+    public List<Integer> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Integer> categories) {
+        this.categories = categories;
+    }
+
+    public List<Integer> getCities() {
+        return cities;
+    }
+
+    public void setCities(List<Integer> cities) {
+        this.cities = cities;
     }
 
     // toString 메서드
@@ -76,9 +81,10 @@ public class SearchCriteriaDto {
         return "SearchCriteriaDto{" +
                 "startDate=" + startDate +
                 ", endDate=" + endDate +
+                ", regionId=" + regionId +
                 ", options=" + options +
-                ", regionName='" + regionId + '\'' +
-                ", cityName='" + cityId + '\'' +
+                ", categories=" + categories +
+                ", cities=" + cities +
                 '}';
     }
 }

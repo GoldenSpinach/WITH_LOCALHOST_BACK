@@ -42,18 +42,28 @@
 		
 			        <!-- reviews 리스트 매핑 -->
         <collection property="reviews" ofType="com.with.withlocalhost.review.model.ReviewDto">
-            <result property="reservater" column="reservater" />
+            <result property="reservater" column="review_reservater" />
             <result property="reviewContent" column="review_content" />
             <result property="reviewScore" column="review_score" />
         </collection>	
         	
+        <collection property="reservations" ofType="com.with.withlocalhost.reservation.model.ReservationDto">
+	        <id property="reservationId" column="reservation_id"/>
+	        <result property="tourId" column="tour_id"/>
+	        <result property="reservater" column="reservater"/>
+	        <result property="startDate" column="start_date"/>
+	        <result property="endDate" column="end_date"/>
+	        <result property="reservationPeople" column="reservation_people"/>
+	        <result property="reservationPay" column="reservation_pay"/>
+	        <result property="reservationStatus" column="reservation_status"/>
+    	</collection>	
 	</resultMap>
 	
 
 
 
 	<select id="tourAllList" resultMap="tourResultMap">
-	    select
+	    select DISTINCT
 	        t.tour_id,
 	        t.guid_name,
 	        t.title,
@@ -111,7 +121,7 @@
 	</select>
 	 
 	<select id="tourDetail" resultMap="tourResultMap">
-	    SELECT
+	    	    SELECT
 	        t.tour_id
 	        , t.guid_name
 	        , t.title
@@ -129,10 +139,13 @@
 	        , a.act_img_url
 	        , o.option_name
 	        , c.category_name
-	        , r.reservater
+	        , r.reservater as review_reservater
 	        , r.review_content
 	        , r.review_score
 	        , r.average_review_score AS review_avg
+	        , re.reservation_id
+            , re.start_date
+            , re.end_date
 	    FROM
 	        tour AS t
 	    LEFT JOIN
@@ -143,13 +156,17 @@
 	        tour_activity_view AS a USING(tour_id)
 	    LEFT JOIN
 	        tour_review_summary AS r USING(tour_id)
+		LEFT JOIN 
+			reservation as re on r.tour_id = re.tour_id
 	    WHERE
 	        t.tour_id = #{tourId}
+            and
+            re.reservation_status !='C';
 	</select>
 	
 	<!-- 투어 검색 -->
 	<select id="tourSearch" resultMap="tourResultMap">
-	    SELECT
+		    SELECT
 	        t.tour_id,
 	        t.guid_name,
 	        t.title,
@@ -203,23 +220,30 @@
 	    </if>
 	    <!-- 옵션 조건 -->
 	    <if test="options != null and !options.isEmpty()">
-	        AND o.option_id IN
+	        AND o.category_id IN
 	        <foreach collection="options" item="option" open="(" separator="," close=")">
 	            #{option}
 	        </foreach>
 	    </if>
-	    <!-- 카테고리 이름 조건 -->
-	    <if test="categoryName != null">
-	        AND c.category_id = #{categoryId}
+	    <!-- 카테고리 조건 -->
+	    <if test="categories != null and !categories.isEmpty()">
+	        AND c.category_id IN
+	        <foreach collection="categories" item="category" open="(" separator="," close=")">
+	            #{category}
+	        </foreach>
 	    </if>
-	    <!-- 지역 ID 조건 -->
-	    <if test="regionId != 0">
+	    <!-- 도시 조건 -->
+	    <if test="cities != null and !cities.isEmpty()">
+	        AND t.city_id IN
+	        <foreach collection="cities" item="city" open="(" separator="," close=")">
+	            #{city}
+	        </foreach>
+	    </if>
+	    <!-- 지역 조건 -->
+	    <if test="regionId != null">
 	        AND t.region_id = #{regionId}
 	    </if>
-	    <!-- 도시 ID 조건 -->
-	    <if test="cityId != 0">
-	        AND t.city_id = #{cityId}
-	    </if>
+
 	</select>
 
 	<!-- data insert 구문-->

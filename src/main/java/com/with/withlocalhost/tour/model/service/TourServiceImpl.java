@@ -99,7 +99,7 @@ public class TourServiceImpl implements TourService {
 		// mainImg 파일 저장
 		if(mainImg !=null) {
 			String fileName = fileUtil.uploadFile(mainImg);
-//			tourdto.setMainImgUrl(fileName);			
+			tourdto.setMainImgUrl(fileName);			
 		}
 		List<CreateActivityDto> actList = tourdto.getActivities();
 		if(actList!=null) {
@@ -107,6 +107,10 @@ public class TourServiceImpl implements TourService {
 				String actFileName = fileUtil.uploadFile(activityImg.get(i));
 			}
 		}
+		
+		//데이터 저장이 완료되었을 경우 isert하는 구문 생성이 필요함
+		
+		
 	}
 	
 	

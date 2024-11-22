@@ -2,6 +2,8 @@ package com.with.withlocalhost.tour.model;
 
 import java.util.List;
 
+import com.with.withlocalhost.lookup.model.CityDto;
+import com.with.withlocalhost.reservation.model.ReservationDto;
 import com.with.withlocalhost.review.model.ReviewDto;
 
 public class TourDto {
@@ -22,6 +24,8 @@ public class TourDto {
     private List<OptionDto> options; // 옵션 리스트
     private List<ActivityDto> activities; // 활동 리스트
     private List<ReviewDto> reviews;
+    private List<CityDto> cities;
+    private List<ReservationDto> reservations;
 
     // 기본 생성자
     public TourDto() {}
@@ -29,7 +33,8 @@ public class TourDto {
     // 모든 필드를 포함한 생성자
     public TourDto(int tourId, String title, String content,int peopleCnt, int pay, String notice, String meetLongitude,
             String meetLatitude, String meetAddress, String mainImgUrl, String guidName, double reviewAvg,
-            List<CategoryDto> categorys, List<OptionDto> options, List<ActivityDto> activities , List<ReviewDto> reviews) {
+            List<CategoryDto> categorys, List<OptionDto> options, List<ActivityDto> activities , List<ReviewDto> reviews , List<CityDto> cities,
+            List<ReservationDto> reservations) {
         this.tourId = tourId;
         this.title = title;
         this.content = content;
@@ -46,6 +51,8 @@ public class TourDto {
         this.options = options;
         this.activities = activities;
         this.reviews = reviews;
+        this.cities = cities;
+        this.reservations = reservations;
     }
 
     // Getter와 Setter
@@ -185,6 +192,20 @@ public class TourDto {
 	public void setReviews(List<ReviewDto> reviews) {
 		this.reviews = reviews;
 	}
+	
+	public List<CityDto> getCities(){
+		return cities;
+	}
+	public void setCities(List<ReservationDto> reservations) {
+		this.reservations = reservations;
+	}
+	
+	public List<ReservationDto> getReservations(){
+		return reservations;
+	}
+	public void setReservations(List<ReservationDto> reservations) {
+		this.reservations = reservations;
+	}
 
 	// toString() 메서드 (디버깅 및 로그용)
     @Override
@@ -200,10 +221,12 @@ public class TourDto {
                 ", meetAddress='" + meetAddress + '\'' +
                 ", mainImgUrl='" + mainImgUrl + '\'' +
                 ", guidName='" + guidName + '\'' +
-                ", reviewAvg=" + reviewAvg +
-                ", categorys=" + categorys +
-                ", options=" + options +
-                ", activitys=" + activities +
+                ", reviewAvg=" + reviewAvg +'\'' +
+                ", categorys=" + categorys +'\'' +
+                ", options=" + options +'\'' +
+                ", activitys=" + activities +'\'' +
+                ", cities=" + cities +'\'' +
+                ", reservations=" + reservations +'\'' +
                 '}';
     }
 }

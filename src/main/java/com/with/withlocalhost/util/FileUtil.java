@@ -91,4 +91,26 @@ public class FileUtil {
 		UUID uuid = UUID.randomUUID();
 		return uuid.toString()+fileName;
 	}
+	
+    // 파일 삭제 메서드
+    public boolean deleteFile(String fileName) {
+        // 1. 파일의 경로를 계산
+        String realPath = getRealPath();
+        if (realPath == null) {
+            System.out.println("경로를 찾을 수 없습니다.");
+            return false;
+        }
+        String filePath = realPath + fileName;
+
+        // 2. 파일 객체 생성
+        File fileToDelete = new File(filePath);
+        if (fileToDelete.exists()) {
+            // 3. 파일 삭제
+            return fileToDelete.delete();
+        } else {
+            System.out.println("파일이 존재하지 않습니다: " + filePath);
+            return false;
+        }
+    }
+	
 }
