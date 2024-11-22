@@ -32,4 +32,12 @@ public class SwaggerConfig {
                 .pathsToMatch("/reservation/**") // 해당 경로만 Swagger 문서화
                 .build();
     }
+    
+    @Bean
+    public GroupedOpenApi reviewApi() {
+        return GroupedOpenApi.builder()
+                .group("review") // 두 번째 그룹 이름 설정
+                .pathsToMatch("/review/**") // 해당 경로만 Swagger 문서화
+                .build();
+    }
 }

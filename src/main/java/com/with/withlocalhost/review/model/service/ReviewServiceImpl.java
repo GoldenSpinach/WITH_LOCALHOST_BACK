@@ -27,7 +27,7 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public String modifyReviewList(ReviewDto reviewDto) throws SQLException {
 		// TODO Auto-generated method stub
-		int result = reviewRepository.modifyReviewList(reviewDto);
+		int result = reviewRepository.modifyReview(reviewDto);
 		if(result>0) {
 			return "success";
 		}

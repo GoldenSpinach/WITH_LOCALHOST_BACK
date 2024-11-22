@@ -13,6 +13,6 @@ public interface ReviewRepository {
 	
 	List<ReviewTourDto> myReviewList(String userId) throws SQLException;
 	
-	int modifyReviewList(ReviewDto reviewDto) throws SQLException;
+	int modifyReview(ReviewDto reviewDto) throws SQLException;
 	
 }

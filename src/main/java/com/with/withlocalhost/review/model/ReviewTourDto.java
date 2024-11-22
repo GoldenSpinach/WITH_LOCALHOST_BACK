@@ -2,41 +2,36 @@ package com.with.withlocalhost.review.model;
 
 import java.util.Date;
 
-import java.util.Date;
-
 public class ReviewTourDto {
 
     private int tourId;
-    private int reservationId;
-    private String reservater;
+    private String guidName;
+    private String title;
+    private String tourContent;
     private Date startDate;
     private Date endDate;
     private int reservationPeople;
-    private int reservationPay;
-    private String reservationStatus;
+    private String reservationPay;
     private String reviewContent;
-    private double reviewScore;
-    private double reviewAvg;
+    private int reviewScore;
 
     // 기본 생성자
-    public ReviewTourDto() {
-    }
+    public ReviewTourDto() {}
 
-    // 모든 필드를 포함한 생성자
-    public ReviewTourDto(int tourId, int reservationId, String reservater, Date startDate, Date endDate,
-                         int reservationPeople, int reservationPay, String reservationStatus, 
-                         String reviewContent, double reviewScore, double reviewAvg) {
+    // 필요한 필드만 받는 생성자
+    public ReviewTourDto(int tourId, String guidName, String title, String tourContent,
+                               Date startDate, Date endDate, int reservationPeople,
+                               String reservationPay, String reviewContent, int reviewScore) {
         this.tourId = tourId;
-        this.reservationId = reservationId;
-        this.reservater = reservater;
+        this.guidName = guidName;
+        this.title = title;
+        this.tourContent = tourContent;
         this.startDate = startDate;
         this.endDate = endDate;
         this.reservationPeople = reservationPeople;
         this.reservationPay = reservationPay;
-        this.reservationStatus = reservationStatus;
         this.reviewContent = reviewContent;
         this.reviewScore = reviewScore;
-        this.reviewAvg = reviewAvg;
     }
 
     // Getter와 Setter
@@ -48,20 +43,28 @@ public class ReviewTourDto {
         this.tourId = tourId;
     }
 
-    public int getReservationId() {
-        return reservationId;
+    public String getGuidName() {
+        return guidName;
     }
 
-    public void setReservationId(int reservationId) {
-        this.reservationId = reservationId;
+    public void setGuidName(String guidName) {
+        this.guidName = guidName;
     }
 
-    public String getReservater() {
-        return reservater;
+    public String getTitle() {
+        return title;
     }
 
-    public void setReservater(String reservater) {
-        this.reservater = reservater;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getTourContent() {
+        return tourContent;
+    }
+
+    public void setTourContent(String tourContent) {
+        this.tourContent = tourContent;
     }
 
     public Date getStartDate() {
@@ -88,20 +91,12 @@ public class ReviewTourDto {
         this.reservationPeople = reservationPeople;
     }
 
-    public int getReservationPay() {
+    public String getReservationPay() {
         return reservationPay;
     }
 
-    public void setReservationPay(int reservationPay) {
+    public void setReservationPay(String reservationPay) {
         this.reservationPay = reservationPay;
-    }
-
-    public String getReservationStatus() {
-        return reservationStatus;
-    }
-
-    public void setReservationStatus(String reservationStatus) {
-        this.reservationStatus = reservationStatus;
     }
 
     public String getReviewContent() {
@@ -112,37 +107,28 @@ public class ReviewTourDto {
         this.reviewContent = reviewContent;
     }
 
-    public double getReviewScore() {
+    public int getReviewScore() {
         return reviewScore;
     }
 
-    public void setReviewScore(double reviewScore) {
+    public void setReviewScore(int reviewScore) {
         this.reviewScore = reviewScore;
-    }
-
-    public double getReviewAvg() {
-        return reviewAvg;
-    }
-
-    public void setReviewAvg(double reviewAvg) {
-        this.reviewAvg = reviewAvg;
     }
 
     // toString 메서드
     @Override
     public String toString() {
-        return "ReviewTourDto{" +
+        return "ReservationTourDto{" +
                 "tourId=" + tourId +
-                ", reservationId=" + reservationId +
-                ", reservater='" + reservater + '\'' +
+                ", guidName='" + guidName + '\'' +
+                ", title='" + title + '\'' +
+                ", tourContent='" + tourContent + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", reservationPeople=" + reservationPeople +
-                ", reservationPay=" + reservationPay +
-                ", reservationStatus='" + reservationStatus + '\'' +
+                ", reservationPay='" + reservationPay + '\'' +
                 ", reviewContent='" + reviewContent + '\'' +
                 ", reviewScore=" + reviewScore +
-                ", reviewAvg=" + reviewAvg +
                 '}';
     }
 }

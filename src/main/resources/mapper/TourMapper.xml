@@ -16,7 +16,8 @@
 		<result property="meetLongitude" column="meet_longitude" />
 		<result property="mainImgUrl" column="main_img_url" />
 		<result property="reviewAvg" column="review_avg" />
-
+		<result property="needDate" column="need_date"/>
+		
 		<!-- categorys 리스트 매핑 -->
 		<collection property="categorys"
 			ofType="com.with.withlocalhost.tour.model.CategoryDto">
@@ -127,6 +128,7 @@
 	        , t.title
 	        , t.tour_content
 	        , t.people_cnt
+	        , t.need_date
 	        , t.meet_address
 	        , t.meet_latitude
 	        , t.meet_longitude

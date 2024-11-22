@@ -19,7 +19,7 @@ public class TourDto {
     private String mainImgUrl; // 메인 이미지 URL
     private String guidName; // 가이드 이름
     private double reviewAvg; // 평균 리뷰 점수
-
+    private int needDate;
     private List<CategoryDto> categorys; // 카테고리 리스트
     private List<OptionDto> options; // 옵션 리스트
     private List<ActivityDto> activities; // 활동 리스트
@@ -34,7 +34,7 @@ public class TourDto {
     public TourDto(int tourId, String title, String content,int peopleCnt, int pay, String notice, String meetLongitude,
             String meetLatitude, String meetAddress, String mainImgUrl, String guidName, double reviewAvg,
             List<CategoryDto> categorys, List<OptionDto> options, List<ActivityDto> activities , List<ReviewDto> reviews , List<CityDto> cities,
-            List<ReservationDto> reservations) {
+            List<ReservationDto> reservations , int needDate) {
         this.tourId = tourId;
         this.title = title;
         this.content = content;
@@ -53,8 +53,17 @@ public class TourDto {
         this.reviews = reviews;
         this.cities = cities;
         this.reservations = reservations;
+        this.needDate = needDate;
     }
 
+    public int getNeedDate() {
+    	return needDate;
+    }
+    public void setNeedDate(int needDate) {
+    	this.needDate = needDate;
+    }
+    
+    
     // Getter와 Setter
     public int getTourId() {
         return tourId;
