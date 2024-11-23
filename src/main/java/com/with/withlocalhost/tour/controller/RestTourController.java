@@ -92,6 +92,14 @@ public class RestTourController {
 		return ResponseEntity.ok("success");
 	}
 
+	@Operation(summary="내가 등록한 투어 목록 ( 마이 투어 리스트 ) ")
+	@GetMapping("/mytour")
+	public ResponseEntity<?> myTourList(@RequestParam String userId) throws Exception{
+		List<TourDto> myTourList = tourService.myTourList(userId);
+		return ResponseEntity.ok(myTourList);
+	}
+	
+	
 	/*
 	 * 
 	 * 수정은 상의 하고 나서 구현하기
