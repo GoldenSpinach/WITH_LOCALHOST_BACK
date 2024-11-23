@@ -35,4 +35,13 @@ public class ReviewServiceImpl implements ReviewService{
 		return "fail";
 	}
 
+	@Override
+	public String deleteReview(int reviewId) throws SQLException {
+		int result = reviewRepository.delteReview(reviewId);
+		if(result>0) {
+			return "success";
+		}
+		return "fail";
+	}
+
 }

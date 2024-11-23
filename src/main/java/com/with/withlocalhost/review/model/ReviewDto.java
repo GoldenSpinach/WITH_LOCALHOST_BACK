@@ -19,39 +19,40 @@ public class ReviewDto {
         this.reviewScore = reviewScore;
     }
     
+
     public String getReservater() {
-    	return reservater;
-    }
-    public void setReservater(String reservater) {
-    	this.reservater = reservater;
-    }
-    
-    public int getReservationId() {
-    	return reservationId;
-    }
-    public void setReservationId(int reservationId) {
-    	this.reservationId = reservationId;
-    }
-    
-    // reviewContent의 getter와 setter
-    public String getReviewContent() {
-        return reviewContent;
-    }
+		return reservater;
+	}
 
-    public void setReviewContent(String reviewContent) {
-        this.reviewContent = reviewContent;
-    }
+	public void setReservater(String reservater) {
+		this.reservater = reservater;
+	}
 
-    // reviewScore의 getter와 setter
-    public Double getReviewScore() {
-        return reviewScore;
-    }
+	public int getReservationId() {
+		return reservationId;
+	}
 
-    public void setReviewScore(Double reviewScore) {
-        this.reviewScore = reviewScore;
-    }
+	public void setReservationId(int reservationId) {
+		this.reservationId = reservationId;
+	}
 
-    // toString() 메서드
+	public String getReviewContent() {
+		return reviewContent;
+	}
+
+	public void setReviewContent(String reviewContent) {
+		this.reviewContent = reviewContent;
+	}
+
+	public Double getReviewScore() {
+		return reviewScore;
+	}
+
+	public void setReviewScore(Double reviewScore) {
+		this.reviewScore = reviewScore;
+	}
+
+	// toString() 메서드
     @Override
     public String toString() {
         return "ReviewDto{" +

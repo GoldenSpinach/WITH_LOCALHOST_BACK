@@ -20,7 +20,7 @@
 	    
 	    <result property="reviewContent" column="review_content"/>
 	    <result property="reviewScore" column="review_score"/>
-</resultMap>
+	</resultMap>
 	
 
 
@@ -54,13 +54,17 @@
 	        <![CDATA[ re.end_date < CURDATE() ]]>
 	</select>
 		
-	<update id="modifyReviewList" parameterType="com.with.withlocalhost.review.model.ReviewDto">
+	<update id="modifyReview" parameterType="com.with.withlocalhost.review.model.ReviewDto">
 	    UPDATE review
 	    SET
 	        review_content = #{reviewContent},
 	        review_score = #{reviewScore}
 	    WHERE reservation_id = #{reservationId}
-</update>
+	</update>
 
+	<delete id="delteReview" parameterType="int">
+		delete from review
+		where reservation_id = #{reservationId}
+	</delete>
 
 </mapper>

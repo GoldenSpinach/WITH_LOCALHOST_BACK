@@ -10,5 +10,7 @@ public interface ReviewService {
 
 	List<ReviewTourDto> myReviewList(String userId) throws SQLException;
 	
-	String modifyReviewList(ReviewDto reviewDto) throws SQLException;;
+	String modifyReviewList(ReviewDto reviewDto) throws SQLException;
+	
+	String deleteReview(int reviewId) throws SQLException;
 }

@@ -15,4 +15,5 @@ public interface ReviewRepository {
 	
 	int modifyReview(ReviewDto reviewDto) throws SQLException;
 	
+	int delteReview(int reviewId) throws SQLException;
 }
