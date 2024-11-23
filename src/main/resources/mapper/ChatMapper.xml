@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.with.withlocalhost.chat.model.repository.ChatRepository">
+
+	 <!-- ChatMessageDto를 위한 resultMap -->
+    <resultMap id="chatMessageResultMap" type="com.with.withlocalhost.chat.model.ChatMessageDto">
+        <id property="msgId" column="msg_id"/>
+        <result property="sendId" column="send_id"/>
+        <result property="chatRoomId" column="chat_room_id"/>
+        <result property="msgContent" column="msg_content"/>
+        <result property="msgSendDate" column="msg_send_date"/>
+        <result property="msgSendTime" column="msg_send_time"/>
+        <result property="msgStatus" column="msg_status"/>
+        <result property="receiver" column="receiver"/>
+    </resultMap>
+
+    <!-- ChatRoomDto를 위한 resultMap -->
+    <resultMap id="chatRoomResultMap" type="com.with.withlocalhost.chat.model.ChatRoomDto">
+        <id property="chatRoomId" column="chat_room_id"/>
+        <result property="chatGuidId" column="chat_guid_id"/>
+        <result property="chatGuestId" column="chat_guest_id"/>
+        <result property="lastMessage" column="last_message"/>
+    </resultMap>
+
+
+
+	<!-- chat data 넣기-->
+	<insert id="insertChatMessage" parameterType="com.with.withlocalhost.chat.model.ChatMessageDto">
+		INSERT INTO chat_room
+            (send_id, chat_room_id, msg_content, msg_send_date,msg_send_time)
+        VALUES
+            (#{sendId}, #{chatRoomId}, #{msgContent}, #{msgSendDate}, #{msgSendTime});
+	</insert>
+
+
+ 	<!-- 채팅방 목록 조회 -->
+    <select id="getChatRoomList" parameterType="String" resultMap="chatRoomResultMap">
+		SELECT 
+		    c.chat_room_id,
+		    c.chat_guid_id,
+		    c.chat_guest_id,
+		    m.msg_id,
+		    m.msg_content as last_message
+		FROM
+		    chat_room AS c
+		LEFT JOIN
+		    chat_message AS m ON c.chat_room_id = m.chat_room_id
+		WHERE
+		    m.msg_id = (
+		        SELECT MAX(m2.msg_id)
+		        FROM chat_message AS m2
+		        WHERE m2.chat_room_id = c.chat_room_id
+		    )
+		    AND (c.chat_guid_id = #{userId} OR c.chat_guest_id = #{userId});
+    </select>
+
+    <!-- 채팅 내역 조회 -->
+    <select id="getChatList" parameterType="int" resultMap="chatMessageResultMap">
+		select
+			msg_id
+			,send_id
+		    ,chat_room_id
+		    ,msg_content
+		    ,DATE_FORMAT(msg_send_date, '%Y-%m-%d') as msg_send_date
+		    ,DATE_FORMAT(msg_send_time, '%H:%i') as msg_send_time
+		    ,msg_status
+		from chat_message
+		where
+			chat_room_id = #{chatRoomId};
+    </select>
+
+    <!-- 채팅방 삭제 -->
+    <delete id="deleteChatRoom" parameterType="int">
+        DELETE FROM chat_rooms WHERE room_id = #{chatRoomId}
+    </delete>
+</mapper>

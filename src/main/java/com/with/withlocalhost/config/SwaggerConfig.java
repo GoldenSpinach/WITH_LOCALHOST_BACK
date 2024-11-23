@@ -40,4 +40,13 @@ public class SwaggerConfig {
                 .pathsToMatch("/review/**") // 해당 경로만 Swagger 문서화
                 .build();
     }
+    
+    @Bean
+    public GroupedOpenApi chatApi() {
+        return GroupedOpenApi.builder()
+                .group("chat") // 두 번째 그룹 이름 설정
+                .pathsToMatch("/chat/**") // 해당 경로만 Swagger 문서화
+                .build();
+    }
+    
 }
