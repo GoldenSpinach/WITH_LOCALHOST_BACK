@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -84,7 +85,7 @@ public class RestTourController {
 
 	@Operation(summary = "tour 생성 ( insert )", description = "")
 	@PostMapping("/create")
-	public ResponseEntity<?> createTour(@RequestPart(required = false) CreateTourDto tourdto,
+	public ResponseEntity<?> createTour(@ModelAttribute CreateTourDto tourdto,
 			@RequestPart(required = false) MultipartFile mainImg,
 			@RequestPart(required = false) List<MultipartFile> activityImg) throws Exception {
 			tourService.createTour(tourdto, mainImg, activityImg);
