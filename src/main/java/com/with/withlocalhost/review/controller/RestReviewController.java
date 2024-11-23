@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "review API", description = "리뷰 관련 API")  // @Api 대신 @Tag 사용
 @RestController
 @RequestMapping("review")
+@CrossOrigin(origins = "http://localhost:5173")
 public class RestReviewController {
 	
 	private final ReviewService reviewService;

@@ -3,6 +3,7 @@ package com.with.withlocalhost.lookup.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +20,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "lookup API", description = "loop up API")
 @RestController
 @RequestMapping("/lookup")
+@CrossOrigin(origins = "http://localhost:5173")
 public class RestLookupController {
 
 	private final LookupService lookupService;
