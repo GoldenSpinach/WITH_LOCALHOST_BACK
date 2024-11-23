@@ -28,6 +28,9 @@ public class RestUserController {
 	    private final String REDIRECT_URI = "http://localhost:8000/kakaotest";
 	
 	
+	    // 이름 , 경로 수정 필요
+	    
+	    
 	
 	    @PostMapping("/kakao")
 	    public ResponseEntity<?> kaoLogin(@RequestBody Map<String , String >body){
