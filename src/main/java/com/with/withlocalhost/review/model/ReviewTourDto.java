@@ -10,6 +10,7 @@ public class ReviewTourDto {
     private String tourContent;
     private Date startDate;
     private Date endDate;
+    private int reservationId;
     private int reservationPeople;
     private String reservationPay;
     private String reviewContent;
@@ -20,7 +21,7 @@ public class ReviewTourDto {
 
     // 필요한 필드만 받는 생성자
     public ReviewTourDto(int tourId, String guidName, String title, String tourContent,
-                               Date startDate, Date endDate, int reservationPeople,
+                               Date startDate, Date endDate, int reservationId ,int reservationPeople,
                                String reservationPay, String reviewContent, int reviewScore) {
         this.tourId = tourId;
         this.guidName = guidName;
@@ -28,12 +29,21 @@ public class ReviewTourDto {
         this.tourContent = tourContent;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.reservationId = reservationId;
         this.reservationPeople = reservationPeople;
         this.reservationPay = reservationPay;
         this.reviewContent = reviewContent;
         this.reviewScore = reviewScore;
     }
-
+    
+    public int getReservationId() {
+    	return reservationId;
+    }
+    
+    public void setReservationId(int reservationId) {
+    	this.reservationId = reservationId;
+    }
+    
     // Getter와 Setter
     public int getTourId() {
         return tourId;

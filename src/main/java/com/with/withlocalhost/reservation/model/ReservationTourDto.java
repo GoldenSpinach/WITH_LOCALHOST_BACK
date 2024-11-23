@@ -11,6 +11,7 @@ import com.with.withlocalhost.tour.model.OptionDto;
 public class ReservationTourDto {
 
     private int tourId;
+    private int reservationId;
     private String guidName;
     private String title;
     private String tourContent;
@@ -31,11 +32,12 @@ public class ReservationTourDto {
     public ReservationTourDto() {}
 
     // 모든 필드를 받는 생성자
-    public ReservationTourDto(int tourId, String guidName, String title, String tourContent, int peopleCnt,
+    public ReservationTourDto(int tourId, int reservationId , String guidName, String title, String tourContent, int peopleCnt,
                           String mainImgUrl, String reservater, Date startDate, Date endDate, int reservationPeople,
                           String reservationPay, String reservationStatus, List<CategoryDto> categorys,
                           List<OptionDto> options, List<ReviewDto> reviews) {
         this.tourId = tourId;
+        this.reservationId = reservationId;
         this.guidName = guidName;
         this.title = title;
         this.tourContent = tourContent;
@@ -52,7 +54,17 @@ public class ReservationTourDto {
         this.reviews = reviews;
     }
 
+    
+    
     // Getter와 Setter
+    public int getReservationId() {
+        return reservationId;
+    }
+
+    public void setReservationId(int reservationId) {
+        this.reservationId = reservationId;
+    }
+    
     public int getTourId() {
         return tourId;
     }

@@ -15,8 +15,9 @@
 	    <result property="endDate" column="end_date"/>
 	    <result property="reservationPeople" column="reservation_people"/>
 	    <result property="reservationPay" column="reservation_pay"/>
-	    
+	    <result property="reservationId" column="reservation_id"/>
 	    <!-- review 테이블의 컬럼 -->
+	    
 	    <result property="reviewContent" column="review_content"/>
 	    <result property="reviewScore" column="review_score"/>
 </resultMap>
