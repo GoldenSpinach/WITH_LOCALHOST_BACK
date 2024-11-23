@@ -102,7 +102,7 @@ public class TourServiceImpl implements TourService {
 			tourdto.setMainImgUrl(fileName);			
 		}
 		List<CreateActivityDto> actList = tourdto.getActivities();
-		if(actList!=null) {
+		if(actList != null && activityImg != null) {
 			for(int i=0;i<activityImg.size() ;i++) {
 				String actFileName = fileUtil.uploadFile(activityImg.get(i));
 			}
