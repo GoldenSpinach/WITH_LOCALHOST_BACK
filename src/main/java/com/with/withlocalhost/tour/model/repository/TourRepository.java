@@ -24,6 +24,8 @@ public interface TourRepository {
 	
 	// 투어 랜덤 리스트
 	List<TourDto> tourRecentList() throws SQLException;
+
+	List<TourDto> myTourList(String userId) throws SQLException;
 	
 	
 	int createTour(CreateTourDto tourdto) throws SQLException;

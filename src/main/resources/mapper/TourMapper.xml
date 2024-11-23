@@ -61,8 +61,6 @@
 	</resultMap>
 	
 
-
-
 	<select id="tourAllList" resultMap="tourResultMap">
 	    select DISTINCT
 	        t.tour_id,
@@ -321,6 +319,33 @@
 	  		)
 	    </foreach>
 	</insert>
+
+	<select id="myTourList" resultMap="tourResultMap" parameterType="String">
+	    select DISTINCT
+	        t.tour_id,
+	        t.guid_name,
+	        t.title,
+	        t.tour_content,
+	        t.people_cnt,
+	        t.meet_address,
+	        t.meet_latitude,
+	        t.meet_longitude,
+	        t.main_img_url,
+	        o.option_name,
+	        c.category_name,
+	        r.average_review_score as review_avg
+	    from 
+	        tour as t
+	    left join
+	        tour_option_view as o using (tour_id)
+	    left join
+	        tour_category_view as c using(tour_id)
+	    left join
+	        tour_review_summary as r using (tour_id)
+	    where guid_name = #{userId};
+	</select>
+
+
 
 </mapper>
 

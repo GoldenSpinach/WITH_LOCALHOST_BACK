@@ -112,6 +112,15 @@ public class TourServiceImpl implements TourService {
 		
 		
 	}
+
+	/*
+	 * 내 투어 목록
+	 */
+	@Override
+	public List<TourDto> myTourList(String userId) throws SQLException {
+		
+		return tourRepo.myTourList(userId);
+	}
 	
 	
 	

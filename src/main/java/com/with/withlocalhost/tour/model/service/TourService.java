@@ -22,5 +22,6 @@ public interface TourService {
 	List<TourDto> tourRecentList() throws SQLException;
 	
 	String createTour(CreateTourDto tourdto , MultipartFile mainImg , List<MultipartFile> activityImg) throws SQLException;
-	
+
+	List<TourDto> myTourList(String userId) throws SQLException;
 }
