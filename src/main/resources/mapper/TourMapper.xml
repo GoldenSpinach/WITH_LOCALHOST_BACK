@@ -305,6 +305,7 @@
 			,act_address
 			,act_latitude
 			,act_longitude
+			,act_img_url
 		)
 	    VALUES
 	    <foreach collection="activities" item="activity" separator=",">
