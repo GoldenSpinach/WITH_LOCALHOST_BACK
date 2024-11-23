@@ -46,4 +46,8 @@ public class RestChatController {
 		
 		return ResponseEntity.ok(chatService.deleteChatRoom(chatRoomId));
 	}
+	
+	
+	
+	
 }
