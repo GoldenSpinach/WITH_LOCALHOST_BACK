@@ -275,7 +275,7 @@
 			#{mainImgUrl},
 			#{cityId},
 			#{regionId},
-			#{needDate},
+			#{needDate}
 		)
 	</insert>
 
