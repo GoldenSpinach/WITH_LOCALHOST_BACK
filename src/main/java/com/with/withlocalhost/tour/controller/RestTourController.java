@@ -84,7 +84,7 @@ public class RestTourController {
 
 	@Operation(summary = "tour 생성 ( insert )", description = "")
 	@PostMapping("/create")
-	public ResponseEntity<?> createTour(@RequestBody(required = false) CreateTourDto tourdto,
+	public ResponseEntity<?> createTour(@RequestPart(required = false) CreateTourDto tourdto,
 			@RequestPart(required = false) MultipartFile mainImg,
 			@RequestPart(required = false) List<MultipartFile> activityImg) throws Exception {
 			tourService.createTour(tourdto, mainImg, activityImg);
