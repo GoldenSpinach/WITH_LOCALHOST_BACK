@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,7 +46,7 @@ public class RestReviewController {
 	 * 리뷰 수정하기
 	 */
 	@Operation(summary = "review 수정", description = "")
-	@GetMapping("/reviewlist")
+	@PostMapping("/reviewlist")
 	public ResponseEntity<?> modifyReviewList(@RequestBody ReviewDto reviewDto) throws Exception{
 		return ResponseEntity.ok(reviewService.modifyReviewList(reviewDto));
 	}
