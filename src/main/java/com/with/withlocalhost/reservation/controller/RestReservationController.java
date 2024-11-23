@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.with.withlocalhost.reservation.model.ReservationDto;
 import com.with.withlocalhost.reservation.model.ReservationTourDto;
 import com.with.withlocalhost.reservation.model.service.ReservationService;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "Reservation API", description = "예약 관련 API")  // @Api 대신 @Tag 사용
@@ -72,7 +72,7 @@ public class RestReservationController {
 	@Operation(summary = " testId : minji123 / 예약 수정 투어 호스트만 할 수 있음 / P:대기, A:승인, C:취소", description = "reservation_id 와 reservation_type만 던져도 됨")
 	@PutMapping("/modify")
 	public ResponseEntity<?> modify(@RequestBody ReservationDto reservationDto) throws Exception{
-	
+		System.out.println(reservationDto);
 		return ResponseEntity.ok(reservationService.modify(reservationDto));
 	}
 	
