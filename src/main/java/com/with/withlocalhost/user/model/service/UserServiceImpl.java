@@ -25,4 +25,10 @@ public class UserServiceImpl implements UserService {
 		return "fail";
 	}
 
+	/*
+	 * 로그인 및 회원가입 관련해서
+	 */
+		
+	
+	
 }

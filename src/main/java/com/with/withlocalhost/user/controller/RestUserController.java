@@ -52,6 +52,7 @@ public class RestUserController {
 	    @PostMapping("/kakao")
 	    public ResponseEntity<?> kakaoLogin(@RequestBody Map<String, String> body) {
 	        String code = body.get("code");
+	        System.out.println("Code : " + code);
 	        try {
 	            // 서비스 계층에서 처리
 	            Map<String, Object> response = socialService.kakaoLogin(code);

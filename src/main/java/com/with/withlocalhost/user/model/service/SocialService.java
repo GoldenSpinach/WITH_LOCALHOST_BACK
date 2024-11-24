@@ -22,7 +22,7 @@ public class SocialService {
 
 	private final String CLIENT_ID = "9247db9521fcc29d87f5a88abe98639f"; // 카카오 REST API 키
 	private final String CLIENT_SECRET = ""; // 선택적, 필요 없으면 빈 문자열
-	private final String REDIRECT_URI = "http://localhost:8000/kakaotest";
+	private final String REDIRECT_URI = "http://localhost:5173/kakao";
 
 	public Map<String, Object> kakaoLogin(String code) throws Exception {
 		// 1. 액세스 토큰 요청
@@ -54,9 +54,7 @@ public class SocialService {
 		tokenHeaders.add("Content-Type", "application/x-www-form-urlencoded");
 
 		HttpEntity<MultiValueMap<String, String>> tokenRequest = new HttpEntity<>(tokenParams, tokenHeaders);
-
 		ResponseEntity<Map> tokenResponse = restTemplate.exchange(tokenUrl, HttpMethod.POST, tokenRequest, Map.class);
-
 		return (String) tokenResponse.getBody().get("access_token");
 	}
 
