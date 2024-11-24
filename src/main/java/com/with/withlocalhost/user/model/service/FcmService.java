@@ -13,8 +13,8 @@ import java.util.List;
 @Service
 public class FcmService {
 
-	public void sendNotification(String token) {
-			Message message = Message.builder().putData("title", "TITLE 테스트입니다.").putData("body", "body TEST 입니다").setToken(token).build();
+	public void sendNotification(String token , String title , String body) {
+			Message message = Message.builder().putData("title", title).putData("body", body).setToken(token).build();
 
 			try {
 				String response = FirebaseMessaging.getInstance().send(message);

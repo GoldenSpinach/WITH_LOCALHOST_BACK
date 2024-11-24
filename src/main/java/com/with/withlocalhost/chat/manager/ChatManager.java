@@ -7,8 +7,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
+import com.google.firebase.database.core.Constants;
 import com.with.withlocalhost.chat.model.ChatMessageDto;
 import com.with.withlocalhost.chat.model.repository.ChatRepository;
+import com.with.withlocalhost.constant.FcmConstantMessage;
 import com.with.withlocalhost.user.model.service.FcmService;
 
 import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
@@ -16,6 +18,7 @@ import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
 
 @Component
 public class ChatManager {
@@ -50,7 +53,7 @@ public class ChatManager {
              * db에서 꺼내는 코드 추가 및 내용 전달 관련 확인
              */
             String token = chatRepository.getToken(receiver);
-            fcmService.sendNotification(receiver);
+            fcmService.sendNotification(token , FcmConstantMessage.FCM_MESSAGE_TITLE , FcmConstantMessage.NEW_CHATTING_MESSAGE);
             
         }
     }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.with.withlocalhost.notification.model.repository.NotificationRepository">
+
+	<select id="sendReservationMessage" parameterType="int" resultType="String">
+		SELECT 
+			uft.fcm_token
+		FROM 
+			user_fcm_token uft
+		JOIN 
+			tour t 
+		ON 
+			uft.user_id = t.guid_name
+		JOIN 
+			reservation r 
+		ON 
+			t.tour_id = r.tour_id
+		WHERE 
+			r.reservation_id = #{reservationId};
+	</select>
+	
+	
+	<select id="sendReservationSuccessMessage" parameterType="int" resultType="String">
+	
+	</select>
+	
+	
+	
+	
+	<select id="sendReservationCancelMessage" parameterType="int" resultType="String">
+	
+	
+	</select>
+	
+	
+	<select id="sendNewReviewMessage" parameterType="int" resultType="String">
+	
+	
+	
+	</select>
+	
+	
+</mapper>

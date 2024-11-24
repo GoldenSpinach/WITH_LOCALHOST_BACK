@@ -122,7 +122,7 @@
 	</insert>
 
 
-	<update id="modify">
+	<update id="modify" useGeneratedKeys="true" keyProperty="reservationId">
 		UPDATE reservation
 		SET reservation_status = #{reservationStatus}
 		WHERE reservation_id = #{reservationId};
