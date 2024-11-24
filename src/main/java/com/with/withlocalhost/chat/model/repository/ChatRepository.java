@@ -18,4 +18,6 @@ public interface ChatRepository {
 	List<ChatMessageDto> getChatList(int chatRoomId) throws SQLException;
 	
 	int deleteChatRoom(int chatRoomId) throws SQLException;
+	
+	String getToken(String userId)  throws SQLException;
 }

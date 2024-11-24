@@ -6,10 +6,10 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.with.withlocalhost.user.model.repository.UserRepository;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import com.with.withlocalhost.user.model.mapper.UserRepository;
 
 @Service
 public class SocialService {

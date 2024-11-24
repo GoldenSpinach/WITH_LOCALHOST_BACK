@@ -1,5 +1,6 @@
 package com.with.withlocalhost.user.controller;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.with.withlocalhost.user.model.UserFcmDto;
+import com.with.withlocalhost.user.model.service.FcmService;
 import com.with.withlocalhost.user.model.service.SocialService;
 import com.with.withlocalhost.user.model.service.UserService;
 
@@ -30,7 +32,6 @@ public class RestUserController {
 
 	private final UserService userService;
 	private final SocialService socialService;
-	
 	
 	public RestUserController( UserService userService , SocialService socialService) {
 		this.userService = userService;
@@ -62,9 +63,10 @@ public class RestUserController {
 	    }
 	
 	    @PostMapping("/fcmtoken")
-	    public ResponseEntity<?> addFcmToken(@RequestBody UserFcmDto userFcmDto){
+	    public ResponseEntity<?> addFcmToken(@RequestBody UserFcmDto userFcmDto) throws SQLException{
+	    	//메세지 전송 관련 메소드 호출
 	    	
-	    	return ResponseEntity.ok("te");
+	    	return ResponseEntity.ok(userService.addFcmToken(userFcmDto));
 	    }
 	
 }

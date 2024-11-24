@@ -1,4 +1,4 @@
-package com.with.withlocalhost.user.model.mapper;
+package com.with.withlocalhost.user.model.repository;
 
 import java.sql.SQLException;
 

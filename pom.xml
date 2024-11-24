@@ -120,11 +120,12 @@
 			<version>2.4.0</version>
 		</dependency>
 
-		<!--firebase sdk-->
+		<!--firebase
+		sdk-->
 		<dependency>
 			<groupId>com.google.firebase</groupId>
 			<artifactId>firebase-admin</artifactId>
-			<version>9.1.1</version>
+			<version>9.2.0</version>
 		</dependency>
 
 		<!--okhttp-->

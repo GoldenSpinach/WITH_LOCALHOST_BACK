@@ -35,13 +35,16 @@ public class FileUtil {
 		System.out.println("fileName : " + fileName);
 		// 3. 파일 저장 경로
 		String fullPathName = realPath + fileName;
-
+		System.out.println("저장파일 명 : " + fullPathName);
+		
+		String fullPath = serverHost + fileName;
+		
 		// 4. 파일 저장
 		if (saveFile(img, fullPathName)) {
 			System.out.println("File successfully uploaded: " + fileName);
 			System.out.println("full path : " + serverHost+fileName);
 			
-			return fileName;
+			return fullPath;
 		} else {
 			System.out.println("error 발생했음!!!!");
 			return null;

@@ -13,8 +13,10 @@
 	
 	
 	<insert id="addFcmToken" parameterType="com.with.withlocalhost.user.model.UserFcmDto">
-        INSERT INTO user_fcm_token (user_id, fcm_token, is_active)
-        VALUES (#{userId}, #{fcmToken}, #{isActive})
+         INSERT INTO user_fcm_token (user_id, fcm_token)
+    	 VALUES (#{userId}, #{fcmToken})
+    	 ON DUPLICATE KEY UPDATE
+    	 fcm_token = #{fcmToken}
     </insert>
 	
 	

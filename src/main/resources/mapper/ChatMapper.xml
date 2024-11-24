@@ -74,4 +74,11 @@
     <delete id="deleteChatRoom" parameterType="int">
         DELETE FROM chat_rooms WHERE room_id = #{chatRoomId}
     </delete>
+    
+	  <!-- 사용자 ID로 FCM 토큰 조회 -->
+    <select id="getToken" parameterType="string" resultType="string">
+        SELECT fcm_token
+        FROM user_fcm_token
+        WHERE user_id = #{userId}
+    </select>
 </mapper>
