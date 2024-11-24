@@ -24,10 +24,8 @@ public class ChatController {
 
 	@MessageMapping("/send")
 	public void sendMessage(ChatMessageDto chatMessageDto) throws SQLException {
+		System.out.println("send 도착 @@@ : " + chatMessageDto);
 		chatService.sendMessage(chatMessageDto);
 	}
-	
-	
 
-	
 }

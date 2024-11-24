@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.with.withlocalhost.review.model.repository.ReviewRepository">
+
+	<resultMap id="reservationTourResultMap" type="com.with.withlocalhost.review.model.ReviewTourDto">
+    	<!-- tour 테이블의 컬럼 -->
+	    <result property="tourId" column="tour_id"/>
+	    <result property="guidName" column="guid_name"/>
+	    <result property="title" column="title"/>
+	    <result property="tourContent" column="tour_content"/>
+	    
+	    <!-- reservation 테이블의 컬럼 -->
+	    <result property="startDate" column="start_date"/>
+	    <result property="endDate" column="end_date"/>
+	    <result property="reservationPeople" column="reservation_people"/>
+	    <result property="reservationPay" column="reservation_pay"/>
+	    <result property="reservationId" column="reservation_id"/>
+	    <!-- review 테이블의 컬럼 -->
+	    
+	    <result property="reviewContent" column="review_content"/>
+	    <result property="reviewScore" column="review_score"/>
+	</resultMap>
+	
+
+
+
+	<select id="myReviewList" resultMap="reservationTourResultMap">
+	    SELECT 
+	        t.tour_id,
+	        t.guid_name,
+	        t.title,
+	        t.tour_content,
+	        re.reservation_id,
+	        re.start_date,
+	        re.end_date,
+	        re.reservation_people,
+	        re.reservation_pay,
+	        r.review_content,
+	        r.review_score
+	    FROM 
+	        tour AS t
+	    LEFT JOIN 
+	        reservation AS re
+	    USING (tour_id)
+	    LEFT JOIN 
+	        review AS r
+	    USING (reservation_id)
+	    WHERE 
+	        re.reservater = #{userId}
+	    AND
+	        re.reservation_status = "A"
+	    AND
+	        <![CDATA[ re.end_date < CURDATE() ]]>
+	</select>
+		
+	<update id="modifyReview" parameterType="com.with.withlocalhost.review.model.ReviewDto">
+	    UPDATE review
+	    SET
+	        review_content = #{reviewContent},
+	        review_score = #{reviewScore}
+	    WHERE reservation_id = #{reservationId}
+	</update>
+
+	<delete id="delteReview" parameterType="int">
+		delete from review
+		where reservation_id = #{reservationId}
+	</delete>
+
+</mapper>

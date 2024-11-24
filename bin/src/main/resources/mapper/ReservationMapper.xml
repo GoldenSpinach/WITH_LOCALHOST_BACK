@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.with.withlocalhost.reservation.model.repository.ReservationRepository">
+
+	 <!-- ResultMap 정의 -->
+	    <resultMap id="ReservationResultMap" type="com.with.withlocalhost.reservation.model.ReservationTourDto">
+	        <id property="reservationId" column="reservation_id"/>
+	        <result property="tourId" column="tour_id"/>
+	        <result property="guidName" column="guid_name"/>
+	        <result property="title" column="title"/>
+	        <result property="tourContent" column="tour_content"/>
+	        <result property="peopleCnt" column="people_cnt"/>
+	        <result property="mainImgUrl" column="main_img_url"/>
+	        <result property="reservater" column="reservater"/>
+	        <result property="startDate" column="start_date"/>
+	        <result property="endDate" column="end_date"/>
+	        <result property="reservationPeople" column="reservation_people"/>
+	        <result property="reservationPay" column="reservation_pay"/>
+	        <result property="reservationStatus" column="reservation_status"/>
+	        
+	    <collection property="categorys"
+			ofType="com.with.withlocalhost.tour.model.CategoryDto">
+			<id property="categoryId" column="category_id"/>
+			<result property="categoryName" column="category_name" />
+		</collection>
+
+		<!-- options 리스트 매핑 -->
+		<collection property="options"
+			ofType="com.with.withlocalhost.tour.model.OptionDto">
+			<id property="categoryId" column="category_id"/>
+			<result property="optionName" column="option_name" />
+		</collection>	
+		
+    	</resultMap>
+	
+	   
+	 <!-- 예약 정보 조회 쿼리 -->
+    <select id="guidList" resultMap="ReservationResultMap">
+	    select
+	        t.tour_id,
+	        t.guid_name,
+	        t.title,
+	        t.tour_content,
+	        t.people_cnt,
+	        t.main_img_url,
+	        o.category_id,
+	        o.option_name,
+	        c.category_id,
+	        c.category_name,
+	        r.average_review_score as review_avg
+            ,re.reservation_id
+            ,re.reservater
+            ,re.start_date
+            ,re.end_date
+            ,re.reservation_people
+            ,re.reservation_pay
+            ,re.reservation_status
+	    from 
+	        tour as t
+	    left join
+	        tour_option_view as o using (tour_id)
+	    left join
+	        tour_category_view as c using(tour_id)
+	    left join
+	        tour_review_summary as r using (tour_id)
+		left join
+			reservation as re using (tour_id)
+        where t.guid_name = "${guidId}";
+    </select>
+
+	<select id="guestList" resultMap="ReservationResultMap">
+		select
+	        t.tour_id,
+	        r.reservation_id,
+	        t.guid_name,
+	        t.title,
+	        t.tour_content,
+	        t.people_cnt,
+	        t.meet_address,
+	        t.meet_latitude,
+	        t.meet_longitude,
+	        t.main_img_url,
+	        o.category_id,
+	        o.option_name,
+	        c.category_id,
+	        c.category_name,
+	        r.average_review_score as review_avg
+            ,re.reservation_id
+            ,re.reservater
+            ,re.start_date
+            ,re.end_date
+            ,re.reservation_people
+            ,re.reservation_pay
+            ,re.reservation_status
+	    from 
+	        tour as t
+	    left join
+	        tour_option_view as o using (tour_id)
+	    left join
+	        tour_category_view as c using(tour_id)
+	    left join
+	        tour_review_summary as r using (tour_id)
+		left join
+			reservation as re using (tour_id)
+        where re.reservater = "${guestId}";
+	</select>
+
+
+
+
+
+	<insert id="makeReservation" useGeneratedKeys="true"
+		keyProperty="reservationId">
+		INSERT INTO reservation
+		(tour_id, reservater, start_date, end_date, reservation_people,
+		reservation_pay, reservation_status)
+		VALUES
+		(#{tourId}, #{reservater}, #{startDate}, #{endDate},
+		#{reservationPeople}, #{reservationPay}, #{reservationStatus});
+	</insert>
+
+
+	<update id="modify">
+		UPDATE reservation
+		SET reservation_status = #{reservationStatus}
+		WHERE reservation_id = #{reservationId};
+	</update>
+
+
+</mapper>

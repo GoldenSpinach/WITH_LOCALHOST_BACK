@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.with.withlocalhost.user.model.repository.UserRepository">
+	
+	    <!-- ResultMap 정의 -->
+    <resultMap id="UserFcmResultMap" type="com.with.withlocalhost.user.model.UserFcmDto">
+        <result property="userId" column="user_id" />
+        <result property="fcmToken" column="fcm_token" />
+    </resultMap>
+	
+	
+	
+	<insert id="addFcmToken" parameterType="com.with.withlocalhost.user.model.UserFcmDto">
+        INSERT INTO user_fcm_token (user_id, fcm_token, is_active)
+        VALUES (#{userId}, #{fcmToken}, #{isActive})
+    </insert>
+	
+	
+	
+	
+	</mapper>

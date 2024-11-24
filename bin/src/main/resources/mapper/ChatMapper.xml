@@ -27,7 +27,7 @@
 
 	<!-- chat data 넣기-->
 	<insert id="insertChatMessage" parameterType="com.with.withlocalhost.chat.model.ChatMessageDto">
-		INSERT INTO chat_message
+		INSERT INTO chat_room
             (send_id, chat_room_id, msg_content, msg_send_date,msg_send_time)
         VALUES
             (#{sendId}, #{chatRoomId}, #{msgContent}, #{msgSendDate}, #{msgSendTime});

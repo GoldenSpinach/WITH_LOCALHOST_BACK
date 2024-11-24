@@ -159,7 +159,9 @@
 		LEFT JOIN 
 			reservation as re on r.tour_id = re.tour_id
 	    WHERE
-	        t.tour_id = #{tourId};
+	        t.tour_id = #{tourId}
+            and
+            re.reservation_status !='C';
 	</select>
 	
 	<!-- 투어 검색 -->

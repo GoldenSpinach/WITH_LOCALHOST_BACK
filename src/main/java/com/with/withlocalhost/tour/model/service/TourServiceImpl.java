@@ -15,6 +15,8 @@ import com.with.withlocalhost.tour.model.TourDto;
 import com.with.withlocalhost.tour.model.repository.TourRepository;
 import com.with.withlocalhost.util.FileUtil;
 
+import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
+
 @Service
 public class TourServiceImpl implements TourService {
 
@@ -99,6 +101,7 @@ public class TourServiceImpl implements TourService {
 		// mainImg 파일 저장
 		if(mainImg !=null) {
 			String fileName = fileUtil.uploadFile(mainImg);
+			System.out.println(" @@@@@@@ fileName : " + fileName);
 			tourdto.setMainImgUrl(fileName);			
 		}
 		List<CreateActivityDto> actList = tourdto.getActivities();

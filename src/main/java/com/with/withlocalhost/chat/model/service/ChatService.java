@@ -19,5 +19,6 @@ public interface ChatService {
 	
 	//채팅 나가기
 	String deleteChatRoom(int chatRoomId) throws SQLException;
+	
 
 }
