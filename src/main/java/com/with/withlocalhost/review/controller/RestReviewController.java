@@ -20,6 +20,7 @@ import com.with.withlocalhost.tour.model.TourDto;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Tag(name = "review API", description = "리뷰 관련 API")  // @Api 대신 @Tag 사용
 @RestController
@@ -39,7 +40,7 @@ public class RestReviewController {
 	 */
 	@Operation(summary = "my 리뷰 리스트 조회", description = "")
 	@GetMapping("/{userId}")
-	public ResponseEntity<?> myReviewList(@PathVariable("userId") String userId) throws Exception{
+	public ResponseEntity<?> myReviewList(HttpServletRequest request , @PathVariable("userId") String userId) throws Exception{
 		List<ReviewTourDto> reviewTourList = reviewService.myReviewList(userId);
 		return ResponseEntity.ok(reviewTourList);
 	}
@@ -50,8 +51,10 @@ public class RestReviewController {
 	 */
 	@Operation(summary = "review 수정", description = "")
 	@PostMapping("/modify")
-	public ResponseEntity<?> modifyReview(@RequestBody ReviewDto reviewDto) throws Exception{
+	public ResponseEntity<?> modifyReview(HttpServletRequest request ,@RequestBody ReviewDto reviewDto) throws Exception{
+		String userId = (String) request.getAttribute("userId");
 		System.out.println(reviewDto);
+		reviewDto.setReservater(userId);
 		return ResponseEntity.ok(reviewService.modifyReviewList(reviewDto));
 	}
 	
@@ -60,7 +63,7 @@ public class RestReviewController {
 	 */
 	@Operation(summary="review 삭제 reservationId 만 넘겨도 삭제가능")
 	@PostMapping("/delete")
-	public ResponseEntity<?> delteReview(@RequestParam int reviewId) throws Exception{
+	public ResponseEntity<?> delteReview(HttpServletRequest request ,@RequestParam int reviewId) throws Exception{
 		return ResponseEntity.ok(reviewService.deleteReview(reviewId));
 	}
 	

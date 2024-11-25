@@ -48,6 +48,8 @@ public class AccessTokenInterceptor implements HandlerInterceptor {
         }
 
         // 4. Access Token을 요청 속성에 저장
+        String userId = String.valueOf(userInfo.get("id"));
+        request.setAttribute("userId", userId);
         request.setAttribute("accessToken", accessToken);
         return true; // 다음 핸들러로 요청 전달
     }

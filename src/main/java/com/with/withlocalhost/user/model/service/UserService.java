@@ -16,4 +16,6 @@ public interface UserService {
 	Map<String , Object> getUserInfo(String accessToken) throws SQLException;
 	
 	String logOut(String accessToken) throws SQLException;
+	
+	String updateAccessToken(String accessToken) throws SQLException;
 }
