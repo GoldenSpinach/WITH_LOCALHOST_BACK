@@ -19,7 +19,7 @@ import com.with.withlocalhost.chat.model.service.ChatService;
 import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
-@RequestMapping("chat")
+@RequestMapping("/chat")
 @CrossOrigin(origins = "http://localhost:5173")  // 프론트엔드 URL 지정
 public class RestChatController {
 	private final ChatService chatService;
@@ -49,9 +49,9 @@ public class RestChatController {
 	}
 	
 	@Operation(summary = "채팅방 생성", description = "채팅방 생성")
-	@PostMapping("creatchatroom")
+	@PostMapping("createchatroom")
 	public ResponseEntity<?> createChatRoom(@RequestBody ChatRoomDto chatRoomDto) throws SQLException{
-		
+		System.out.println("데이터 들어왔어요");
 		return ResponseEntity.ok(chatService.createChatRoom(chatRoomDto));
 	}
 	

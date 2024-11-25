@@ -27,5 +27,8 @@ public interface UserRepository {
 
     // Refresh Token 업데이트
     int updateRefreshToken(String userId, String refreshToken) throws SQLException;
+    
+    //RefreshToken 가져오기
+    String findRefreshTokenByUserId(String userId) throws SQLException;
 }
 

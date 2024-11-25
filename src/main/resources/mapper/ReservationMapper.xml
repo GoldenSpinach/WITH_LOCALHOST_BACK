@@ -114,10 +114,10 @@
 		keyProperty="reservationId">
 		INSERT INTO reservation
 		(tour_id, reservater, start_date, end_date, reservation_people,
-		reservation_pay, reservation_status)
+		reservation_pay)
 		VALUES
 		(#{tourId}, #{reservater}, #{startDate}, #{endDate},
-		#{reservationPeople}, #{reservationPay}, #{reservationStatus});
+		#{reservationPeople}, #{reservationPay});
 	</insert>
 
 

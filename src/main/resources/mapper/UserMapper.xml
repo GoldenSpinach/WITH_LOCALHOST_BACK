@@ -15,6 +15,15 @@
         
     </resultMap>
 
+	<insert id="addFcmToken" parameterType="com.with.withlocalhost.user.model.UserFcmDto">
+	    INSERT INTO user_fcm_token (user_id, fcm_token)
+	    VALUES (#{userId}, #{fcmToken})
+	    ON DUPLICATE KEY UPDATE
+	        fcm_token = #{fcmToken}
+	</insert>
+
+
+
 
     <!-- 사용자 정보 조회 -->
  <!-- 사용자 정보 조회 -->
@@ -47,7 +56,6 @@
         SET 
             user_phone_number = #{phoneNumber},
             user_gender = #{gender},
-            user_img = #{imgUrl},
             user_birth = #{birth}
         WHERE 
             user_id = #{userId};
@@ -71,5 +79,15 @@
         WHERE 
             user_id = #{userId};
     </update>
+    
+    <!-- Refresh Token 가져오기 -->
+    <select id="findRefreshTokenByUserId" parameterType="String" resultType="String">
+    	select 
+    		user_token
+    	from user
+    	where user_id = #{userId};
+    
+    </select>
+    
 
 </mapper>

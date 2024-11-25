@@ -82,7 +82,6 @@ public class KakaoAuthService {
             return response.getBody();
         } catch (HttpClientErrorException e) {
             // 실패 시 에러 정보 반환
-        	System.out.println("데이터를 가져오는곳에서 에러가 났음 ㅇㅇ");
             result.put("error", e.getStatusCode().toString()); // HTTP 상태 코드
             result.put("error_description", e.getResponseBodyAsString()); // 에러 상세 정보
             return result;
