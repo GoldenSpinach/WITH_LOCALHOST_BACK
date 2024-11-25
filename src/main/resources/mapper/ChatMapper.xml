@@ -41,18 +41,20 @@
 		    c.chat_guid_id,
 		    c.chat_guest_id,
 		    m.msg_id,
-		    m.msg_content as last_message
+		    m.msg_content AS last_message
 		FROM
 		    chat_room AS c
 		LEFT JOIN
-		    chat_message AS m ON c.chat_room_id = m.chat_room_id
-		WHERE
-		    m.msg_id = (
+		    chat_message AS m 
+		ON 
+		    c.chat_room_id = m.chat_room_id 
+		    AND m.msg_id = (
 		        SELECT MAX(m2.msg_id)
 		        FROM chat_message AS m2
 		        WHERE m2.chat_room_id = c.chat_room_id
 		    )
-		    AND (c.chat_guid_id = #{userId} OR c.chat_guest_id = #{userId});
+		WHERE
+		    (c.chat_guid_id = #{userId} OR c.chat_guest_id = #{userId});
     </select>
 
     <!-- 채팅 내역 조회 -->

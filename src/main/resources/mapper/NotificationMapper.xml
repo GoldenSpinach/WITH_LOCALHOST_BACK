@@ -23,20 +23,63 @@
 	
 	
 	<select id="sendReservationSuccessMessage" parameterType="int" resultType="String">
-	
+		SELECT 
+			uft.fcm_token
+		FROM 
+			user_fcm_token uft
+		JOIN 
+			tour t 
+		ON 
+			uft.user_id = t.guid_name
+		JOIN 
+			reservation r 
+		ON 
+			t.tour_id = r.tour_id
+		WHERE 
+			r.reservation_id = #{reservationId};
 	</select>
 	
 	
 	
 	
 	<select id="sendReservationCancelMessage" parameterType="int" resultType="String">
-	
+		SELECT 
+			uft.fcm_token
+		FROM 
+			user_fcm_token uft
+		JOIN 
+			tour t 
+		ON 
+			uft.user_id = t.guid_name
+		JOIN 
+			reservation r 
+		ON 
+			t.tour_id = r.tour_id
+		WHERE 
+			r.reservation_id = #{reservationId};
 	
 	</select>
 	
 	
 	<select id="sendNewReviewMessage" parameterType="int" resultType="String">
-	
+		SELECT 
+			uft.fcm_token
+		FROM 
+			user_fcm_token uft
+		JOIN 
+			tour t 
+		ON 
+			uft.user_id = t.guid_name
+		JOIN 
+			reservation r 
+		ON 
+			t.tour_id = r.tour_id
+		JOIN
+			review as rv
+		ON
+			r.reservation_id = rv.reservation_id
+		WHERE 
+			rv.reservation_id = #{reservationId};
 	
 	
 	</select>
