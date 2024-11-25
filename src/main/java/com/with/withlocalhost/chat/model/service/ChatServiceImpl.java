@@ -48,4 +48,20 @@ public class ChatServiceImpl implements ChatService {
         }
     }
 
+	@Override
+	public String createChatRoom(ChatRoomDto chatRoomDto) throws SQLException {
+		int checkChatRoom = chatRepository.checkChatRoom(chatRoomDto);
+		
+		if(checkChatRoom==0) {
+			int result = chatRepository.createChatRoom(chatRoomDto);
+			if(result>0) {
+				if(result>0) {
+					return "success";
+				}
+				return "fail";
+			}
+		}
+		return "fail";
+	}
+
 }

@@ -83,4 +83,26 @@
         FROM user_fcm_token
         WHERE user_id = #{userId}
     </select>
+    
+    <insert id="createChatRoom" parameterType="com.with.withlocalhost.chat.model.ChatRoomDto">
+	    INSERT INTO chat_room (
+	        chat_guid_id,
+	        chat_guest_id
+	    )
+	    VALUES (
+	        #{chatGuidId},
+	        #{chatGuestId}
+	    )
+	</insert>
+    
+    
+    
+	 <select id="checkChatRoom" parameterType="com.with.withlocalhost.chat.model.ChatRoomDto" resultType="int">
+	    SELECT COUNT(*)
+	    FROM chat_room
+	    WHERE (chat_guid_id = #{chatGuidId} AND chat_guest_id = #{chatGuestId})
+	       OR (chat_guest_id = #{chatGuestId} AND chat_guid_id = #{chatGuidId})
+	</select>
+
+
 </mapper>
