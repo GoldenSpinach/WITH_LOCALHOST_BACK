@@ -53,6 +53,7 @@ public class ChatManager {
              * db에서 꺼내는 코드 추가 및 내용 전달 관련 확인
              */
             String token = chatRepository.getToken(receiver);
+            template.convertAndSend("/sub/chat/room/" + chatRoomId, chatMessageDto);
             fcmService.sendNotification(token , FcmConstantMessage.FCM_MESSAGE_TITLE , FcmConstantMessage.NEW_CHATTING_MESSAGE);
             
         }
