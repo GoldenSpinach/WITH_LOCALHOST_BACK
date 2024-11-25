@@ -7,7 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+
+import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +20,7 @@ public class KakaoAuthService {
 
 	private final String CLIENT_ID = "9247db9521fcc29d87f5a88abe98639f"; // 카카오 REST API 키
 	private final String CLIENT_SECRET = ""; // 선택적, 필요 없으면 빈 문자열
-	private final String REDIRECT_URI = "http://localhost:8000/kakaotest";
+	private final String REDIRECT_URI = "http://localhost:5173/kakao";
 
     private final RestTemplate restTemplate = new RestTemplate();
 
@@ -51,7 +54,7 @@ public class KakaoAuthService {
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(tokenParams, headers);
         ResponseEntity<Map> response = restTemplate.postForEntity(tokenUrl, request, Map.class);
-
+        
         Map<String, String> tokens = new HashMap<>();
         tokens.put("access_token", (String) response.getBody().get("access_token"));
         tokens.put("refresh_token", (String) response.getBody().get("refresh_token"));
@@ -68,12 +71,25 @@ public class KakaoAuthService {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + accessToken);
-
         HttpEntity<?> request = new HttpEntity<>(headers);
-        ResponseEntity<Map> response = restTemplate.exchange(userInfoUrl, HttpMethod.GET, request, Map.class);
+        Map<String, Object> result = new HashMap<>();
 
-        return response.getBody();
+        try {
+            // 사용자 정보 요청
+            ResponseEntity<Map> response = restTemplate.exchange(userInfoUrl, HttpMethod.GET, request, Map.class);
+
+            // 성공 시 사용자 정보 반환
+            return response.getBody();
+        } catch (HttpClientErrorException e) {
+            // 실패 시 에러 정보 반환
+        	System.out.println("데이터를 가져오는곳에서 에러가 났음 ㅇㅇ");
+            result.put("error", e.getStatusCode().toString()); // HTTP 상태 코드
+            result.put("error_description", e.getResponseBodyAsString()); // 에러 상세 정보
+            return result;
+        }
     }
+
+
 
     /**
      * 4. Access 토큰 갱신

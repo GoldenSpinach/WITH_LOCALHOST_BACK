@@ -48,5 +48,13 @@ public class RestChatController {
 		return ResponseEntity.ok(chatService.deleteChatRoom(chatRoomId));
 	}
 	
+	@Operation(summary = "채팅방 생성", description = "채팅방 생성")
+	@PostMapping("creatchatroom")
+	public ResponseEntity<?> createChatRoom(@RequestBody ChatRoomDto chatRoomDto) throws SQLException{
+		
+		return ResponseEntity.ok(chatService.createChatRoom(chatRoomDto));
+	}
+	
+	
 	
 }

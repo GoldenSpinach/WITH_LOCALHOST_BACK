@@ -1,25 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper
-	namespace="com.with.withlocalhost.user.model.repository.UserRepository">
-	
-	    <!-- ResultMap 정의 -->
-    <resultMap id="UserFcmResultMap" type="com.with.withlocalhost.user.model.UserFcmDto">
+<mapper namespace="com.with.withlocalhost.user.model.repository.UserRepository">
+
+	   <resultMap id="UserResultMap" type="com.with.withlocalhost.user.model.UserDto">
         <result property="userId" column="user_id" />
-        <result property="fcmToken" column="fcm_token" />
+        <result property="nickName" column="user_nickname" />
+        <result property="email" column="user_email" />
+        <result property="phoneNumber" column="user_phone_number" />
+        <result property="gender" column="user_gender" />
+        <result property="imgUrl" column="user_img" />
+        <result property="birth" column="user_birth" />
+        <result property="refreshToken" column="user_token" />
+        
     </resultMap>
-	
-	
-	
-	<insert id="addFcmToken" parameterType="com.with.withlocalhost.user.model.UserFcmDto">
-         INSERT INTO user_fcm_token (user_id, fcm_token)
-    	 VALUES (#{userId}, #{fcmToken})
-    	 ON DUPLICATE KEY UPDATE
-    	 fcm_token = #{fcmToken}
+
+
+    <!-- 사용자 정보 조회 -->
+ <!-- 사용자 정보 조회 -->
+    <select id="findUserById" parameterType="String" resultMap="UserResultMap">
+        SELECT 
+            user_id,
+            user_nickname,
+            user_email,
+            user_phone_number,
+            user_gender,
+            user_img,
+            user_birth,
+            user_token
+        FROM 
+            user
+        WHERE 
+            user_id = #{userId};
+    </select>
+
+    <!-- 사용자 추가 -->
+    <insert id="addUser" parameterType="com.with.withlocalhost.user.model.UserDto">
+        INSERT INTO 
+        	user (user_id, user_nickname, user_email, user_phone_number, user_gender, user_img, user_birth, user_token)
+        VALUES (#{userId}, #{nickName}, #{email}, #{phoneNumber}, #{gender}, #{imgUrl}, #{birth}, #{refreshToken});
     </insert>
-	
-	
-	
-	
-	</mapper>
+
+    <!-- 사용자 정보 갱신 -->
+    <update id="userJoin" parameterType="com.with.withlocalhost.user.model.UserDto">
+        UPDATE user
+        SET 
+            user_phone_number = #{phoneNumber},
+            user_gender = #{gender},
+            user_img = #{imgUrl},
+            user_birth = #{birth}
+        WHERE 
+            user_id = #{userId};
+    </update>
+
+    <!-- Refresh Token 조회 -->
+    <select id="getRefreshToken" parameterType="String" resultType="String">
+        SELECT 
+            user_token
+        FROM 
+            user
+        WHERE 
+            user_id = #{userId};
+    </select>
+
+    <!-- Refresh Token 업데이트 -->
+    <update id="updateRefreshToken">
+        UPDATE user
+        SET 
+            user_token = #{refreshToken}
+        WHERE 
+            user_id = #{userId};
+    </update>
+
+</mapper>

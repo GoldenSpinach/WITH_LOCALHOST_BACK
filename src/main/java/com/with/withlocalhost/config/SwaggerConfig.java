@@ -49,4 +49,12 @@ public class SwaggerConfig {
                 .build();
     }
     
+    @Bean
+    public GroupedOpenApi userApi() {
+        return GroupedOpenApi.builder()
+                .group("user") // 두 번째 그룹 이름 설정
+                .pathsToMatch("/user/**") // 해당 경로만 Swagger 문서화
+                .build();
+    }
+    
 }
