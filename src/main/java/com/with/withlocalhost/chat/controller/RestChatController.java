@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.with.withlocalhost.chat.model.ChatMessageDto;
 import com.with.withlocalhost.chat.model.ChatRoomDto;
 import com.with.withlocalhost.chat.model.service.ChatService;
+import com.with.withlocalhost.common.annotation.AccessTokenAop;
 
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -27,13 +28,15 @@ public class RestChatController {
 	public RestChatController(ChatService chatService) {
 		this.chatService = chatService;
 	}
-
+	
+	@AccessTokenAop
 	@Operation(summary = "채팅방 조회", description = "채팅방 + 마지막 채팅도 줌")
 	@GetMapping("chatroomList")
 	public ResponseEntity<?> getChatRoomList(@RequestParam String userId) throws SQLException{
 		List<ChatRoomDto> chatRoomList = chatService.getChatRoomList(userId); 
 		return ResponseEntity.ok(chatRoomList);
 	}
+	@AccessTokenAop
 	@Operation(summary = "채팅 목록 조회", description = "채팅 목록 전체 다줌 최신순으로 정렬됨")
 	@GetMapping("chatList")
 	public ResponseEntity<?> getChatList(@RequestParam int chatRoomId) throws SQLException{
@@ -41,6 +44,7 @@ public class RestChatController {
 		return ResponseEntity.ok(chatList);
 	}
 	
+	@AccessTokenAop
 	@Operation(summary = "채팅방 삭제", description = "채팅방 삭제")
 	@PostMapping("deleteChatRoom")
 	public ResponseEntity<?> deleteChatRoom(@RequestParam int chatRoomId) throws SQLException{
@@ -48,6 +52,7 @@ public class RestChatController {
 		return ResponseEntity.ok(chatService.deleteChatRoom(chatRoomId));
 	}
 	
+	@AccessTokenAop
 	@Operation(summary = "채팅방 생성", description = "채팅방 생성")
 	@PostMapping("createchatroom")
 	public ResponseEntity<?> createChatRoom(@RequestBody ChatRoomDto chatRoomDto) throws SQLException{

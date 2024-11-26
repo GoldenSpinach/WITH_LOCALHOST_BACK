@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.with.withlocalhost.common.annotation.AccessTokenAop;
 import com.with.withlocalhost.review.model.ReviewDto;
 import com.with.withlocalhost.review.model.ReviewTourDto;
 import com.with.withlocalhost.review.model.service.ReviewService;
@@ -38,6 +39,7 @@ public class RestReviewController {
 	/*
 	 * 내 리뷰 보기
 	 */
+	@AccessTokenAop
 	@Operation(summary = "my 리뷰 리스트 조회", description = "")
 	@GetMapping("/{userId}")
 	public ResponseEntity<?> myReviewList(HttpServletRequest request , @PathVariable("userId") String userId) throws Exception{

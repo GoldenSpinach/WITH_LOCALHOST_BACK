@@ -195,7 +195,8 @@ public class UserServiceImpl implements UserService {
             if (userInfo == null || userInfo.containsKey("error")) {
                 throw new IllegalArgumentException("유효하지 않은 Access 토큰입니다.");
             }
-            String userId = (String) userInfo.get("id");
+            String userId = String.valueOf(userInfo.get("id"));
+
 
             // 2. 사용자 ID로 Refresh 토큰 가져오기
             String refreshToken = userRepository.findRefreshTokenByUserId(userId);
