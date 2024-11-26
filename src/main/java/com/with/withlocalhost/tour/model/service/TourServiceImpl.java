@@ -108,6 +108,8 @@ public class TourServiceImpl implements TourService {
 		if(actList != null && activityImg != null) {
 			for(int i=0;i<activityImg.size() ;i++) {
 				String actFileName = fileUtil.uploadFile(activityImg.get(i));
+				actList.get(i).setActImgUrl(actFileName); // 이미지 이름 설정
+             
 			}
 		}
 		

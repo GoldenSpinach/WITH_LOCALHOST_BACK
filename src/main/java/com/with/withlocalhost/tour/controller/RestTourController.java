@@ -1,5 +1,6 @@
 package com.with.withlocalhost.tour.controller;
 
+import java.nio.file.spi.FileSystemProvider;
 import java.util.List;
 
 import org.apache.catalina.connector.Response;
@@ -27,10 +28,11 @@ import com.with.withlocalhost.util.FileUtil;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/tour")
-@CrossOrigin(origins = "http://localhost:5173")  // 프론트엔드 URL 지정
+@CrossOrigin(origins = "http://localhost:5173") // 프론트엔드 URL 지정
 public class RestTourController {
 
 	private final TourService tourService;
@@ -87,22 +89,26 @@ public class RestTourController {
 	@AccessTokenAop
 	@Operation(summary = "tour 생성 ( insert )", description = "")
 	@PostMapping("/create")
-	public ResponseEntity<?> createTour(@RequestPart CreateTourDto tourdto,
-			@RequestPart(value = "mainImg" ,required = false) MultipartFile mainImg,
-			@RequestPart(value = "activityImg" , required = false) List<MultipartFile> activityImg) throws Exception {
-			tourService.createTour(tourdto, mainImg, activityImg);
-
+	public ResponseEntity<?> createTour(HttpServletRequest request, @RequestPart CreateTourDto tourdto,
+			@RequestPart(value = "mainImg", required = false) MultipartFile mainImg,
+			@RequestPart(value = "activityImg", required = false) List<MultipartFile> activityImg) throws Exception {
+		System.out.println("acitivtiyIMg : " + activityImg.size());
+		String nickName = (String) request.getAttribute("nickname");
+		tourdto.setGuidName(nickName);
+		tourService.createTour(tourdto, mainImg, activityImg);
 		return ResponseEntity.ok("success");
 	}
+
 	@AccessTokenAop
-	@Operation(summary="내가 등록한 투어 목록 ( 마이 투어 리스트 ) ")
+	@Operation(summary = "내가 등록한 투어 목록 ( 마이 투어 리스트 ) ")
 	@GetMapping("/mytour")
-	public ResponseEntity<?> myTourList(@RequestParam String userId) throws Exception{
-		List<TourDto> myTourList = tourService.myTourList(userId);
+	public ResponseEntity<?> myTourList(HttpServletRequest request) throws Exception {
+
+		String nickName = (String) request.getAttribute("nickname");
+		List<TourDto> myTourList = tourService.myTourList(nickName);
 		return ResponseEntity.ok(myTourList);
 	}
-	
-	
+
 	/*
 	 * 
 	 * 수정은 상의 하고 나서 구현하기

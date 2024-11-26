@@ -42,7 +42,8 @@ public class RestReviewController {
 	@AccessTokenAop
 	@Operation(summary = "my 리뷰 리스트 조회", description = "")
 	@GetMapping("/{userId}")
-	public ResponseEntity<?> myReviewList(HttpServletRequest request , @PathVariable("userId") String userId) throws Exception{
+	public ResponseEntity<?> myReviewList(HttpServletRequest request) throws Exception{
+		String userId = (String) request.getAttribute("userId");
 		List<ReviewTourDto> reviewTourList = reviewService.myReviewList(userId);
 		return ResponseEntity.ok(reviewTourList);
 	}
@@ -56,8 +57,8 @@ public class RestReviewController {
 	@PostMapping("/modify")
 	public ResponseEntity<?> modifyReview(HttpServletRequest request ,@RequestBody ReviewDto reviewDto) throws Exception{
 		String userId = (String) request.getAttribute("userId");
-		System.out.println(reviewDto);
 		reviewDto.setReservater(userId);
+		System.out.println(reviewDto);
 		return ResponseEntity.ok(reviewService.modifyReviewList(reviewDto));
 	}
 	

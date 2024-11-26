@@ -6,6 +6,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import com.with.withlocalhost.user.model.service.UserService;
 
@@ -21,7 +22,8 @@ public class AccessTokenAop {
 	public AccessTokenAop(UserService userService) {
 		this.userService = userService;
 	}
-
+	
+	
 	@Around("@annotation(com.with.withlocalhost.common.annotation.AccessTokenAop)")
 	public Object reissueToken(ProceedingJoinPoint joinPoint) throws Throwable {
 		// 원래 메서드 실행
@@ -44,7 +46,7 @@ public class AccessTokenAop {
 
 		// AccessToken 갱신
 		String newAccessToken = userService.updateAccessToken(accessToken);
-
+		System.out.println("AOP NEWACCESSTOKEN : " + newAccessToken);
 		// 응답 헤더에 새 토큰 추가
 		if (response != null) {
 			response.setHeader("Authorization", "Bearer " + newAccessToken);
