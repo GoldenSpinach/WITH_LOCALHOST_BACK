@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.with.withlocalhost.common.annotation.AccessTokenAop;
 import com.with.withlocalhost.user.model.UserDto;
 import com.with.withlocalhost.user.model.UserFcmDto;
 import com.with.withlocalhost.user.model.service.FcmService;
@@ -63,6 +64,7 @@ public class RestUserController {
 
 	@Operation(summary = "회원가입 정보 요청", description = "minji123 으로 테스트 해보세용")
 	@PostMapping("/join")
+	@AccessTokenAop
 	public ResponseEntity<?> userJoin(HttpServletRequest request ,@RequestBody UserDto userDto)throws SQLException {
 		String accessToken = (String) request.getAttribute("accessToken");
 		System.out.println("userDto : " + userDto);

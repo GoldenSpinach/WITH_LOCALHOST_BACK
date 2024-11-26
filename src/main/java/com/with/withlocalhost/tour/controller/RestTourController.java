@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.with.withlocalhost.common.annotation.AccessTokenAop;
 import com.with.withlocalhost.tour.model.CreateTourDto;
 import com.with.withlocalhost.tour.model.SearchCriteriaDto;
 import com.with.withlocalhost.tour.model.TourDto;
@@ -83,6 +84,7 @@ public class RestTourController {
 		return ResponseEntity.ok(searchList);
 	}
 
+	@AccessTokenAop
 	@Operation(summary = "tour 생성 ( insert )", description = "")
 	@PostMapping("/create")
 	public ResponseEntity<?> createTour(@RequestPart CreateTourDto tourdto,
@@ -92,7 +94,7 @@ public class RestTourController {
 
 		return ResponseEntity.ok("success");
 	}
-
+	@AccessTokenAop
 	@Operation(summary="내가 등록한 투어 목록 ( 마이 투어 리스트 ) ")
 	@GetMapping("/mytour")
 	public ResponseEntity<?> myTourList(@RequestParam String userId) throws Exception{

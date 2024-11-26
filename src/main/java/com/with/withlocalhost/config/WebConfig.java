@@ -31,9 +31,8 @@ public class WebConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(accessTokenInterceptor)
-				.addPathPatterns("/user/**") // /user 경로
+				.addPathPatterns("/user/**" , "/chat/**", "/tour/mytour", "/reservation/**", "/review/**") // /user 경로
 				// 하위의 모든 경로 , "/chat/**", "/tour/mytour", "/reservation/**", "/review/**"
-																											// 적용
 				.excludePathPatterns("/user/kakao"); // /user/login 경로는 제외
 	}
 

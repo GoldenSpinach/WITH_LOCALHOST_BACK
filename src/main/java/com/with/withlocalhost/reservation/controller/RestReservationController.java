@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.with.withlocalhost.common.annotation.AccessTokenAop;
 import com.with.withlocalhost.reservation.model.ReservationDto;
 import com.with.withlocalhost.reservation.model.ReservationTourDto;
 import com.with.withlocalhost.reservation.model.service.ReservationService;
@@ -37,6 +38,7 @@ public class RestReservationController {
 	/*
 	 * 가이드 예약 정보 확인하기
 	 */
+	@AccessTokenAop
 	@Operation(summary = "가이드 예약 정보", description = "type : param , guidId")
 	@GetMapping("/guidList")
 	public ResponseEntity<?> guidList(@RequestParam String guidId) throws Exception{
@@ -48,6 +50,7 @@ public class RestReservationController {
 	/*
 	 * 게스트 예약 정보 확인
 	 */
+	@AccessTokenAop
 	@Operation(summary = "게스트 예약 정보 ", description = "type : param , guestId")
 	@GetMapping("/guestList")
 	public ResponseEntity<?> guestList(@RequestParam String guestId) throws Exception{
@@ -59,6 +62,7 @@ public class RestReservationController {
 	/*
 	 * 예약 하기 (insert)
 	 */
+	@AccessTokenAop
 	@Operation(summary = "예약하기", description = "type : requestBody , 예약 dto")
 	@PostMapping("/makeReservation")
 	public ResponseEntity<?> makeReservation(@RequestBody ReservationDto reservationDto) throws Exception{
@@ -69,6 +73,7 @@ public class RestReservationController {
 	/*
 	 * 예약 정보 수정 하기(update)
 	 */
+	@AccessTokenAop
 	@Operation(summary = " testId : minji123 / 예약 수정 투어 호스트만 할 수 있음 / P:대기, A:승인, C:취소", description = "reservation_id 와 reservation_type만 던져도 됨")
 	@PutMapping("/modify")
 	public ResponseEntity<?> modify(@RequestBody ReservationDto reservationDto) throws Exception{

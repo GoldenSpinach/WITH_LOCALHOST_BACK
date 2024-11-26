@@ -51,6 +51,7 @@ public class RestReviewController {
 	/*
 	 * 리뷰 수정하기
 	 */
+	@AccessTokenAop
 	@Operation(summary = "review 수정", description = "")
 	@PostMapping("/modify")
 	public ResponseEntity<?> modifyReview(HttpServletRequest request ,@RequestBody ReviewDto reviewDto) throws Exception{
@@ -63,6 +64,7 @@ public class RestReviewController {
 	/*
 	 * 리뷰 삭제
 	 */
+	@AccessTokenAop
 	@Operation(summary="review 삭제 reservationId 만 넘겨도 삭제가능")
 	@PostMapping("/delete")
 	public ResponseEntity<?> delteReview(HttpServletRequest request ,@RequestParam int reviewId) throws Exception{
