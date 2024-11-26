@@ -21,58 +21,65 @@
 	        
 	    <collection property="categorys"
 			ofType="com.with.withlocalhost.tour.model.CategoryDto">
-			<id property="categoryId" column="category_id"/>
+			<id property="categoryId" column="tour_category_id"/>
 			<result property="categoryName" column="category_name" />
 		</collection>
 
 		<!-- options 리스트 매핑 -->
 		<collection property="options"
 			ofType="com.with.withlocalhost.tour.model.OptionDto">
-			<id property="categoryId" column="category_id"/>
+			<id property="categoryId" column="option_category_id"/>
 			<result property="optionName" column="option_name" />
 		</collection>	
 		
     	</resultMap>
 	
 	   
-	 <!-- 예약 정보 조회 쿼리 -->
-    <select id="guidList" resultMap="ReservationResultMap">
-	    select
-	        t.tour_id,
-	        t.guid_name,
-	        t.title,
-	        t.tour_content,
-	        t.people_cnt,
-	        t.main_img_url,
-	        o.category_id,
-	        o.option_name,
-	        c.category_id,
-	        c.category_name,
-	        r.average_review_score as review_avg
-            ,re.reservation_id
-            ,re.reservater
-            ,re.start_date
-            ,re.end_date
-            ,re.reservation_people
-            ,re.reservation_pay
-            ,re.reservation_status
-	    from 
-	        tour as t
-	    left join
-	        tour_option_view as o using (tour_id)
-	    left join
-	        tour_category_view as c using(tour_id)
-	    left join
-	        tour_review_summary as r using (tour_id)
-		left join
-			reservation as re using (tour_id)
-        where t.guid_name = "${guidId}";
-    </select>
+		<select id="guidList" resultMap="ReservationResultMap">
+		    SELECT
+		        t.tour_id,
+		        t.guid_name,
+		        t.title,
+		        t.tour_content,
+		        t.people_cnt,
+		        t.main_img_url,
+		        -- 옵션 정보를 서브쿼리로 중복 제거
+		        o.category_id AS option_category_id,
+		        o.option_name,
+		        -- 카테고리 정보를 서브쿼리로 중복 제거
+		        c.category_id AS tour_category_id,
+		        c.category_name,
+		        r.average_review_score AS review_avg,
+		        re.reservation_id,
+		        re.reservater,
+		        re.start_date,
+		        re.end_date,
+		        re.reservation_people,
+		        re.reservation_pay,
+		        re.reservation_status
+		    FROM 
+		        tour AS t
+		    LEFT JOIN
+		        (SELECT DISTINCT tour_id, category_id, option_name FROM tour_option_view) AS o 
+		        USING (tour_id)
+		    LEFT JOIN
+		        (SELECT DISTINCT tour_id, category_id, category_name FROM tour_category_view) AS c
+		        USING (tour_id)
+		    LEFT JOIN
+		        tour_review_summary AS r 
+		        USING (tour_id)
+		    LEFT JOIN
+		        reservation AS re 
+		        USING (tour_id)
+		    WHERE 
+		        t.guid_name = "${guidId}"
+		    order by re.reservation_id desc; 
+	</select>
+
 
 	<select id="guestList" resultMap="ReservationResultMap">
-		select
+	    SELECT
 	        t.tour_id,
-	        r.reservation_id,
 	        t.guid_name,
 	        t.title,
 	        t.tour_content,
@@ -81,44 +88,48 @@
 	        t.meet_latitude,
 	        t.meet_longitude,
 	        t.main_img_url,
-	        o.category_id,
+	        o.category_id AS option_category_id,
 	        o.option_name,
-	        c.category_id,
+	        c.category_id AS tour_category_id,
 	        c.category_name,
-	        r.average_review_score as review_avg
-            ,re.reservation_id
-            ,re.reservater
-            ,re.start_date
-            ,re.end_date
-            ,re.reservation_people
-            ,re.reservation_pay
-            ,re.reservation_status
-	    from 
-	        tour as t
-	    left join
-	        tour_option_view as o using (tour_id)
-	    left join
-	        tour_category_view as c using(tour_id)
-	    left join
-	        tour_review_summary as r using (tour_id)
-		left join
-			reservation as re using (tour_id)
-        where re.reservater = "${guestId}";
-	</select>
+	        r.average_review_score AS review_avg,
+	        re.reservation_id,
+	        re.reservater,
+	        re.start_date,
+	        re.end_date,
+	        re.reservation_people,
+	        re.reservation_pay,
+	        re.reservation_status
+	    FROM 
+	        tour AS t
+	    LEFT JOIN
+	        (SELECT DISTINCT tour_id, category_id, option_name FROM tour_option_view) AS o 
+	        USING (tour_id)
+	    LEFT JOIN
+	        (SELECT DISTINCT tour_id, category_id, category_name FROM tour_category_view) AS c
+	        USING (tour_id)
+	    LEFT JOIN
+	        tour_review_summary AS r 
+	        USING (tour_id)
+	    LEFT JOIN
+	        reservation AS re 
+	        USING (tour_id)
+	    WHERE 
+	        re.reservater = "${guestId}";
+</select>
 
 
 
 
 
-	<insert id="makeReservation" useGeneratedKeys="true"
-		keyProperty="reservationId">
-		INSERT INTO reservation
-		(tour_id, reservater, start_date, end_date, reservation_people,
-		reservation_pay)
-		VALUES
-		(#{tourId}, #{reservater}, #{startDate}, #{endDate},
-		#{reservationPeople}, #{reservationPay});
+
+	<insert id="makeReservation" useGeneratedKeys="true" keyProperty="reservationId">
+	    INSERT INTO reservation
+	    (tour_id, reservater, reservation_nickname, start_date, end_date, reservation_people, reservation_pay)
+	    VALUES
+	    (#{tourId}, #{reservater}, #{reservaterNickName}, #{startDate}, #{endDate}, #{reservationPeople}, #{reservationPay});
 	</insert>
+
 
 
 	<update id="modify" useGeneratedKeys="true" keyProperty="reservationId">

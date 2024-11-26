@@ -68,7 +68,7 @@ public class RestReviewController {
 	@AccessTokenAop
 	@Operation(summary="review 삭제 reservationId 만 넘겨도 삭제가능")
 	@PostMapping("/delete")
-	public ResponseEntity<?> delteReview(HttpServletRequest request ,@RequestParam int reviewId) throws Exception{
+	public ResponseEntity<?> delteReview(@RequestParam int reviewId) throws Exception{
 		return ResponseEntity.ok(reviewService.deleteReview(reviewId));
 	}
 	

@@ -5,6 +5,7 @@ import java.util.List;
 
 public class CreateTourDto {
     private int tourId;
+    private String guidId;
     private String guidName;
     private String title;
     private String tourContent;
@@ -28,11 +29,12 @@ public class CreateTourDto {
     public CreateTourDto() {}
 
     // 모든 필드를 포함하는 생성자
-    public CreateTourDto(int tourId, String guidName, String title, String tourContent, int peopleCnt, int pay, String notice,
+    public CreateTourDto(int tourId, String guidId, String guidName, String title, String tourContent, int peopleCnt, int pay, String notice,
                          String meetAddress, String meetLatitude, String meetLongitude, String mainImgUrl, int cityId,
                          int regionId, int needDate, MultipartFile img, String imgName, List<CategoryDto> categorys,
                          List<OptionDto> options, List<CreateActivityDto> activities) {
         this.tourId = tourId;
+        this.guidId = guidId;
         this.guidName = guidName;
         this.title = title;
         this.tourContent = tourContent;
@@ -53,6 +55,14 @@ public class CreateTourDto {
         this.activities = activities;
     }
 
+    public String getGuidId() {
+    	return this.guidId;
+    }
+    
+    public void setGuidId(String guidId) {
+    	this.guidId = guidId;
+    }
+    
     // Getter와 Setter 메서드
     public int getTourId() {
         return tourId;

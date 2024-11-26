@@ -93,7 +93,9 @@ public class RestTourController {
 			@RequestPart(value = "mainImg", required = false) MultipartFile mainImg,
 			@RequestPart(value = "activityImg", required = false) List<MultipartFile> activityImg) throws Exception {
 		System.out.println("acitivtiyIMg : " + activityImg.size());
+		String userId = (String) request.getAttribute("userId");
 		String nickName = (String) request.getAttribute("nickname");
+		tourdto.setGuidId(userId);
 		tourdto.setGuidName(nickName);
 		tourService.createTour(tourdto, mainImg, activityImg);
 		return ResponseEntity.ok("success");

@@ -6,6 +6,7 @@ public class ReservationDto {
     private int reservationId;
     private int tourId;
     private String reservater;
+    private String reservaterNickName;
     private Date startDate;
     private Date endDate;
     private int reservationPeople;
@@ -16,7 +17,7 @@ public class ReservationDto {
     public ReservationDto() {}
 
     // 모든 필드를 초기화하는 생성자
-    public ReservationDto(int reservationId, int tourId, String reservater, Date startDate, Date endDate,
+    public ReservationDto(int reservationId, int tourId, String reservater, String reservaterNickName ,Date startDate, Date endDate,
                           int reservationPeople, int reservationPay, String reservationStatus) {
         this.reservationId = reservationId;
         this.tourId = tourId;
@@ -28,6 +29,14 @@ public class ReservationDto {
         this.reservationStatus = reservationStatus;
     }
 
+    public String getReservaterNickName() {
+    	return reservaterNickName;
+    }
+    
+    public void setReservaterNickName(String reservaterNickName) {
+    	this.reservaterNickName = reservaterNickName;
+    }
+    
     // Getter와 Setter
     public int getReservationId() {
         return reservationId;

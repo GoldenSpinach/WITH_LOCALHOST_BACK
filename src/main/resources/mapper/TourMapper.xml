@@ -7,6 +7,7 @@
 	<resultMap id="tourResultMap"
 		type="com.with.withlocalhost.tour.model.TourDto">
 		<id property="tourId" column="tour_id" />
+		<result property="guidId" column="guid_id" />
 		<result property="guidName" column="guid_name" />
 		<result property="title" column="title" />
 		<result property="content" column="tour_content" />
@@ -123,6 +124,7 @@
 	    	    SELECT
 	        t.tour_id
 	        , t.guid_name
+	        , t.guid_id
 	        , t.title
 	        , t.tour_content
 	        , t.people_cnt
@@ -247,6 +249,7 @@
 	<!-- data insert 구문-->
 	<insert id="createTour" parameterType="com.with.withlocalhost.tour.model.CreateTourDto" useGeneratedKeys="true" keyProperty="tourId">
 		insert into tour(
+			guid_id,
 			guid_name,
 			title,
 			tour_content,
@@ -261,6 +264,7 @@
 			region_id,
 			need_date
 		) values (
+			#{guidId},
 			#{guidName},
 			#{title},
 			#{tourContent},

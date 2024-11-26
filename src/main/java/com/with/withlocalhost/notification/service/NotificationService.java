@@ -24,6 +24,7 @@ public class NotificationService {
 	 */
 	public void sendReservationMessage(int tourId) throws SQLException {
 		String receiver = notiRepo.sendReservationMessage(tourId);
+		System.out.println("sendReservationMessage :" + receiver);
 		fcmService.sendNotification(receiver,FcmConstantMessage.FCM_MESSAGE_TITLE , FcmConstantMessage.RESERVATION_MESSAGE);
 	}
 
@@ -32,6 +33,7 @@ public class NotificationService {
 	 */
 	public void sendReservationSuccessMessage(int reservationId) throws SQLException {
 		String receiver = notiRepo.sendReservationSuccessMessage(reservationId);
+		System.out.println("sendReservationSuccessMessage :" + receiver);
 		fcmService.sendNotification(receiver, FcmConstantMessage.FCM_MESSAGE_TITLE , FcmConstantMessage.RESERVATION_ACCEPT_MESSAGE);
 	}
 
@@ -40,6 +42,7 @@ public class NotificationService {
 	 */
 	public void sendReservationCancelMessage(int reservationId) throws SQLException {
 		String receiver = notiRepo.sendReservationCancelMessage(reservationId);
+		System.out.println("sendReservationCancelMessage :" + receiver);
 		fcmService.sendNotification(receiver, FcmConstantMessage.FCM_MESSAGE_TITLE , FcmConstantMessage.RESERVATION_CANCEL);
 	}
 
@@ -48,6 +51,7 @@ public class NotificationService {
 	 */
 	public void sendNewReviewMessage(int reviewId) throws SQLException {
 		String receiver = notiRepo.sendNewReviewMessage(reviewId);
+		System.out.println("sendNewReviewMessage :" + receiver);
 		fcmService.sendNotification(receiver, FcmConstantMessage.FCM_MESSAGE_TITLE , FcmConstantMessage.NEW_REVIEW_MESSAGE);
 	}
 

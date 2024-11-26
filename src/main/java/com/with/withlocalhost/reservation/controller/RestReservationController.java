@@ -20,6 +20,7 @@ import com.with.withlocalhost.reservation.model.service.ReservationService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Tag(name = "Reservation API", description = "예약 관련 API")  // @Api 대신 @Tag 사용
 @RestController
@@ -41,9 +42,9 @@ public class RestReservationController {
 	@AccessTokenAop
 	@Operation(summary = "가이드 예약 정보", description = "type : param , guidId")
 	@GetMapping("/guidList")
-	public ResponseEntity<?> guidList(@RequestParam String guidId) throws Exception{
-		System.out.println("받은 값 : " + guidId);
-		List<ReservationTourDto> reservationList = reservationService.guidList(guidId);
+	public ResponseEntity<?> guidList(HttpServletRequest request) throws Exception{
+		String userId = (String) request.getAttribute("userId");
+		List<ReservationTourDto> reservationList = reservationService.guidList(userId);
 		return ResponseEntity.ok(reservationList);
 	}
 	
@@ -53,8 +54,9 @@ public class RestReservationController {
 	@AccessTokenAop
 	@Operation(summary = "게스트 예약 정보 ", description = "type : param , guestId")
 	@GetMapping("/guestList")
-	public ResponseEntity<?> guestList(@RequestParam String guestId) throws Exception{
-		List<ReservationTourDto> reservationList = reservationService.guestList(guestId);
+	public ResponseEntity<?> guestList(HttpServletRequest request) throws Exception{
+		String userId = (String) request.getAttribute("userId");
+		List<ReservationTourDto> reservationList = reservationService.guestList(userId);
 		return ResponseEntity.ok(reservationList);
 	}
 	
@@ -65,7 +67,12 @@ public class RestReservationController {
 	@AccessTokenAop
 	@Operation(summary = "예약하기", description = "type : requestBody , 예약 dto")
 	@PostMapping("/makeReservation")
-	public ResponseEntity<?> makeReservation(@RequestBody ReservationDto reservationDto) throws Exception{
+	public ResponseEntity<?> makeReservation(HttpServletRequest request,@RequestBody ReservationDto reservationDto) throws Exception{
+		String userId = (String) request.getAttribute("userId");
+		String nickName = (String) request.getAttribute("nickname");
+		reservationDto.setReservater(userId);
+		reservationDto.setReservaterNickName(nickName);
+		System.out.println("reservation nick name : " + nickName);
 		return ResponseEntity.ok(reservationService.makeReservation(reservationDto));
 	}
 	
@@ -77,7 +84,6 @@ public class RestReservationController {
 	@Operation(summary = " testId : minji123 / 예약 수정 투어 호스트만 할 수 있음 / P:대기, A:승인, C:취소", description = "reservation_id 와 reservation_type만 던져도 됨")
 	@PutMapping("/modify")
 	public ResponseEntity<?> modify(@RequestBody ReservationDto reservationDto) throws Exception{
-		System.out.println(reservationDto);
 		return ResponseEntity.ok(reservationService.modify(reservationDto));
 	}
 	

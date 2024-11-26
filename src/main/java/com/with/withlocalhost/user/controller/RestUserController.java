@@ -83,7 +83,7 @@ public class RestUserController {
 	@PostMapping("/logout")
 	public ResponseEntity<?> logOut(HttpServletRequest request) throws SQLException {
 		String accessToken = (String) request.getAttribute("accessToken"); // 재사용
-		return ResponseEntity.ok(userService.getUserInfo(accessToken));
+		return ResponseEntity.ok(userService.logOut(accessToken));
 	}
 
 }

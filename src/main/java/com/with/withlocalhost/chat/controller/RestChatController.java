@@ -18,6 +18,7 @@ import com.with.withlocalhost.chat.model.service.ChatService;
 import com.with.withlocalhost.common.annotation.AccessTokenAop;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/chat")
@@ -55,8 +56,11 @@ public class RestChatController {
 	@AccessTokenAop
 	@Operation(summary = "채팅방 생성", description = "채팅방 생성")
 	@PostMapping("createchatroom")
-	public ResponseEntity<?> createChatRoom(@RequestBody ChatRoomDto chatRoomDto) throws SQLException{
-		System.out.println("데이터 들어왔어요");
+	public ResponseEntity<?> createChatRoom(HttpServletRequest request ,@RequestBody ChatRoomDto chatRoomDto) throws SQLException{
+		String nickName = (String) request.getAttribute("nickname");
+		String userId = (String) request.getAttribute("userId");
+		chatRoomDto.setChatGuestId(userId);
+		chatRoomDto.setChatGuestNickName(nickName);
 		return ResponseEntity.ok(chatService.createChatRoom(chatRoomDto));
 	}
 	

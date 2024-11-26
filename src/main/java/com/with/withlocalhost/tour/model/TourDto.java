@@ -8,6 +8,8 @@ import com.with.withlocalhost.review.model.ReviewDto;
 
 public class TourDto {
     private int tourId; // 투어 ID
+    private String guidId;
+    private String guidName; // 가이드 이름
     private String title; // 제목
     private String content;
     private int peopleCnt; // 인원 수
@@ -17,7 +19,6 @@ public class TourDto {
     private String meetLatitude; // 만남 장소 위도
     private String meetAddress; // 만남 장소 주소
     private String mainImgUrl; // 메인 이미지 URL
-    private String guidName; // 가이드 이름
     private double reviewAvg; // 평균 리뷰 점수
     private int needDate;
     private List<CategoryDto> categorys; // 카테고리 리스트
@@ -31,11 +32,12 @@ public class TourDto {
     public TourDto() {}
 
     // 모든 필드를 포함한 생성자
-    public TourDto(int tourId, String title, String content,int peopleCnt, int pay, String notice, String meetLongitude,
+    public TourDto(int tourId,String guidId,String title, String content,int peopleCnt, int pay, String notice, String meetLongitude,
             String meetLatitude, String meetAddress, String mainImgUrl, String guidName, double reviewAvg,
             List<CategoryDto> categorys, List<OptionDto> options, List<ActivityDto> activities , List<ReviewDto> reviews , List<CityDto> cities,
             List<ReservationDto> reservations , int needDate) {
         this.tourId = tourId;
+        this.guidId = guidId;
         this.title = title;
         this.content = content;
         this.peopleCnt = peopleCnt;
@@ -56,6 +58,13 @@ public class TourDto {
         this.needDate = needDate;
     }
 
+    public String getGuidId() {
+    	return guidId;
+    }
+    public void setGuidId(String guidId) {
+    	this.guidId = guidId;
+    }
+    
     public int getNeedDate() {
     	return needDate;
     }
