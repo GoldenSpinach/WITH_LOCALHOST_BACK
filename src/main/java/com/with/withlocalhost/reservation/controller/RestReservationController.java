@@ -44,7 +44,9 @@ public class RestReservationController {
 	@GetMapping("/guidList")
 	public ResponseEntity<?> guidList(HttpServletRequest request) throws Exception{
 		String userId = (String) request.getAttribute("userId");
+		System.out.println("가이드 예약 도착");
 		List<ReservationTourDto> reservationList = reservationService.guidList(userId);
+		System.out.println(reservationList);
 		return ResponseEntity.ok(reservationList);
 	}
 	

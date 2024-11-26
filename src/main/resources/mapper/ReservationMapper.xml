@@ -72,7 +72,7 @@
 		        reservation AS re 
 		        USING (tour_id)
 		    WHERE 
-		        t.guid_name = "${guidId}"
+		        t.guid_id = "${guidId}"
 		    order by re.reservation_id desc; 
 	</select>
 
